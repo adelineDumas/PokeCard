@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PokeCard</string>
+    <string name="title_activity_connection">ConnectionActivity</string>
+    <string name="title">PokeCard</string>
+    <string name="utilisateur">Utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="connexion">Connexion</string>
 </resources>
