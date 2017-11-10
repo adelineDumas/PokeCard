@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("BUTTON:", "OK");
                 new MyAsyncTask().execute(tv, "http://172.20.10.13:3000/pokedex");
             }
         });
