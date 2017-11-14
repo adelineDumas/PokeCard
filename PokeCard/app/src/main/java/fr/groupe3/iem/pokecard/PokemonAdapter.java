@@ -17,45 +17,40 @@ import java.util.List;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
-
-    private TextView textViewPokemon;
-
-
     public PokemonAdapter(Context context, List objects) {
-        super(context, R.layout.listadapter, objects);
-    }
-
-    private static class ViewHolder{
-        TextView textViewPokemon;
-        ImageView imageViewPokemon;
+        super(context,0, objects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        //Pokemon pokemon = getItem(position);
+        if(convertView == null){
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listadapter,parent, false);
+        }
 
-        ViewHolder viewHolder; // view lookup cache stored in tag
+        ViewHolder viewHolder  = (ViewHolder) convertView.getTag();
 
-        final View result;
 
-        if (convertView == null) {
-
+        if (viewHolder == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.listadapter, parent, false);
             viewHolder.textViewPokemon = (TextView) convertView.findViewById(R.id.textViewNomPokemon);
-            viewHolder.imageViewPokemon = (ImageView) convertView.findViewById(R.id.imageViewPokemon);
-
-
-            result=convertView;
-
+            //viewHolder.imageViewPokemon = (ImageView) convertView.findViewById(R.id.imageViewPokemon);
             convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
         }
 
+        Pokemon pokemon = getItem(position);
+        viewHolder.textViewPokemon.setText(pokemon.getName_pokemon());
+        //viewHolder.imageViewPokemon.setImageResource();
+
+
         return convertView;
+    }
+
+
+    private static class ViewHolder{
+        TextView textViewPokemon;
+        //ImageView imageViewPokemon;
     }
 
 

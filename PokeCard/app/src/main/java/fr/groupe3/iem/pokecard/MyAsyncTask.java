@@ -5,6 +5,11 @@ package fr.groupe3.iem.pokecard;
  */
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,30 +29,42 @@ public class MyAsyncTask extends AsyncTask<Object, Void, String> {
     @Override
     protected String doInBackground(Object... params) {
 
-        URL url = null;
-        HttpURLConnection urlConnection = null;
         BufferedReader in = null;
         String textReturn = "";
+        Pokemon pokemon = new Pokemon();
         list = (ArrayList<Pokemon>) params[0];
         pokemonAdapter = (PokemonAdapter) params[1];
         try {
-            url = new URL(params[2].toString());
-            urlConnection = (HttpURLConnection) url.openConnection();
+            URL url = new URL(params[2].toString());
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                in = new BufferedReader(
-                        new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-                                String temp = "";
-                while ((temp = in.readLine()) != null) {
-                    textReturn += temp;
-                }
+                InputStreamReader isr = new InputStreamReader(urlConnection.getInputStream());
+                BufferedReader input = new BufferedReader(isr);
+                String jsonStr = input.readLine();
+
+                JSONObject jsonObject = new JSONObject(jsonStr);
+
+                // ad - erreur pas un tableau le name
+                JSONArray array = jsonObject.getJSONArray("name");
+
+                Log.d("name", jsonObject.getString("name"));
+
+                input.close();
+                pokemon.setName_pokemon(array.getJSONObject(0).getString("name"));
+                list.add(pokemon);
+                pokemon = new Pokemon();
+                urlConnection.disconnect();
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        catch (JSONException je){
+            je.printStackTrace();
+        }
 
-        list.add(textReturn);
         return textReturn;
 
     }

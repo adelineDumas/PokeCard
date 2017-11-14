@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         listViewPokemon.setAdapter(adapter);
 
-        //new MyAsyncTask().execute(list, adapter, "http://172.20.10.13:3000/pokedex");
-        new MyAsyncTask().execute(list, adapter, "https://pokeapi.co/api/v2/pokemon/1/");
+        new MyAsyncTask().execute(list, adapter, "http://172.20.10.13:3000/pokedex");
+        //new MyAsyncTask().execute(list, adapter, "https://pokeapi.co/api/v2/pokemon/1/");
 
 
     }
