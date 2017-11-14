@@ -6,30 +6,35 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    Button b ;
-    TextView tv ;
+    ListView listViewPokemon ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        b = (Button) findViewById(R.id.buttonJSON);
-        tv = (TextView) findViewById(R.id.textViewJSON);
+        listViewPokemon = (ListView) findViewById(R.id.listViewPokemon);
+
+        List list = new ArrayList<Pokemon>();
+
+        PokemonAdapter adapter = new PokemonAdapter(this, list);
+
+        listViewPokemon.setAdapter(adapter);
+
+        //new MyAsyncTask().execute(list, adapter, "http://172.20.10.13:3000/pokedex");
+        new MyAsyncTask().execute(list, adapter, "https://pokeapi.co/api/v2/pokemon/1/");
 
 
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new MyAsyncTask().execute(tv, "http://172.20.10.13:3000/pokedex");
-            }
-        });
     }
 }

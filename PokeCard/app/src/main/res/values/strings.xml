@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PokeCard</string>
+    <string name="pokecard">PokeCard</string>
+    <string name="user">Utilisateur</string>
+    <string name="pdw">Password</string>
+    <string name="connexion">Connexion</string>
+    <string name="newuser">Nouvel Utilisateur ?</string>
+    <string name="collection">Ma Collection</string>
 </resources>

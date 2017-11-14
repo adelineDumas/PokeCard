@@ -13,11 +13,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyAsyncTask extends AsyncTask<Object, Void, String> {
 
-
-    TextView tv;
+    private List list ;
+    private PokemonAdapter pokemonAdapter;
 
     @Override
     protected String doInBackground(Object... params) {
@@ -26,9 +28,10 @@ public class MyAsyncTask extends AsyncTask<Object, Void, String> {
         HttpURLConnection urlConnection = null;
         BufferedReader in = null;
         String textReturn = "";
-        tv = (TextView) params[0];
+        list = (ArrayList<Pokemon>) params[0];
+        pokemonAdapter = (PokemonAdapter) params[1];
         try {
-            url = new URL(params[1].toString());
+            url = new URL(params[2].toString());
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 in = new BufferedReader(
@@ -44,14 +47,14 @@ public class MyAsyncTask extends AsyncTask<Object, Void, String> {
             e.printStackTrace();
         }
 
+        list.add(textReturn);
         return textReturn;
 
     }
 
     @Override
     protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        tv.setText(s);
+        pokemonAdapter.notifyDataSetChanged();
     }
 
 
