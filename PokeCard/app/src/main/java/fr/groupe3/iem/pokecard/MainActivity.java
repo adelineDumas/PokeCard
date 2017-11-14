@@ -3,13 +3,7 @@ package fr.groupe3.iem.pokecard;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +12,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ListView listViewPokemon ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,3 +33,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
+
