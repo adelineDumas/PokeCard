@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
+import fr.groupe3.iem.pokecard.Manager.ManagerJSON;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     // ad - appel du Web Service pour affichage de la liste de tous les pokemon
-                    managerjson.ReturnOnePokemon(new MyAsyncTask().execute(adapter, "http://172.20.10.13:3000/pokemon/" + position + 1 ).get(), list, position);
+                    //managerjson.ReturnOnePokemon(new MyAsyncTask().execute(adapter, "http://172.20.10.13:3000/pokemon/" + position + 1 ).get(), list, position);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 adb.setTitle("Détails du Pokémon");
 
-                adb.setMessage(list.get(position).getName_pokemon() + " " + list.get(position).getAbilitie());
+                //adb.setMessage(list.get(position).getName_pokemon() + " " + list.get(position).getAbilitie());
 
                 adb.setPositiveButton("Ok", null);
 

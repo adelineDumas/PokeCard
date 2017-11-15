@@ -7,7 +7,7 @@ package fr.groupe3.iem.pokecard.Entities;
 public class Pokemon {
     private int id_pokemon;
     private String name_pokemon;
-    private String abilitie;
+    /*private String abilitie;
     private int height;
     private int width;
     private String type1;
@@ -17,27 +17,16 @@ public class Pokemon {
     private int base_spe_def;
     private int base_atk;
     private int base_def;
-    private int base_hp;
+    private int base_hp;*/
     private String url_img;
 
     public Pokemon(){
 
     }
 
-    public Pokemon(int id_pokemon, String name_pokemon, String abilities, int height, int width, String type1, String type2, int base_speed, int base_spe_atk, int base_spe_def, int base_atk, int base_def, int base_hp, String url_img) {
+    public Pokemon(int id_pokemon, String name_pokemon, String url_img) {
         this.id_pokemon = id_pokemon;
         this.name_pokemon = name_pokemon;
-        this.abilitie = abilities;
-        this.height = height;
-        this.width = width;
-        this.type1 = type1;
-        this.type2 = type2;
-        this.base_speed = base_speed;
-        this.base_spe_atk = base_spe_atk;
-        this.base_spe_def = base_spe_def;
-        this.base_atk = base_atk;
-        this.base_def = base_def;
-        this.base_hp = base_hp;
         this.url_img = url_img;
     }
 
@@ -57,7 +46,7 @@ public class Pokemon {
         this.name_pokemon = name_pokemon;
     }
 
-    public String getAbilitie() {
+    /*public String getAbilitie() {
         return abilitie;
     }
 
@@ -143,7 +132,7 @@ public class Pokemon {
 
     public void setBase_hp(int base_hp) {
         this.base_hp = base_hp;
-    }
+    }*/
 
     public String getUrl_img() {
         return url_img;

@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard;
+package fr.groupe3.iem.pokecard.Manager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,25 +40,5 @@ public class ManagerJSON {
         }
     }
 
-    /***
-     * Parse le Json qui retourne un seul Pokémon
-     * @param pJsonStr
-     * @param pList
-     * @param pPosition
-     * @author Adeline Dumas - Création - 15/11/2017
-     */
-    public void ReturnOnePokemon(String pJsonStr, List<Pokemon> pList, int pPosition){
-        try {
-            JSONObject jsonObject = new JSONObject(pJsonStr);
-            JSONArray array = jsonObject.getJSONArray("abilities");
-                for (int i=0 ; i<array.length(); i++){
-                    JSONObject p = array.getJSONObject(i);
-                    JSONObject ability = p.getJSONObject("ability");
-                    pList.get(pPosition).setAbilitie(ability.getString("name"));
-                }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 }
