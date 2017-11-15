@@ -16,6 +16,7 @@ public class ConnexionActivity extends AppCompatActivity {
     private TextView textViewPassword;
     private EditText editTextUser;
     private EditText editTextPasword;
+    private Button buttonNewUser;
     private Button buttonConnexion;
 
     @Override
@@ -38,7 +39,16 @@ public class ConnexionActivity extends AppCompatActivity {
         editTextUser = (EditText) findViewById(R.id.editTextUser);
         editTextPasword = (EditText) findViewById(R.id.editTextPassword);
 
+        buttonNewUser = (Button) findViewById(R.id.buttonnewUser);
         buttonConnexion = (Button) findViewById(R.id.buttonConnexion);
+
+        buttonNewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().setClass(ConnexionActivity.this, NewUserActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonConnexion.setOnClickListener(new View.OnClickListener() {
             @Override

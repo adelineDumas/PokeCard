@@ -1,7 +1,6 @@
 package fr.groupe3.iem.pokecard;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
-
-/**
- * Created by iem on 14/11/2017.
- */
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
@@ -34,7 +28,6 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
         ViewHolder viewHolder  = (ViewHolder) convertView.getTag();
 
-
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -46,8 +39,9 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
         Pokemon pokemon = getItem(position);
         viewHolder.textViewPokemon.setText(pokemon.getName_pokemon());
-        Picasso.with(getContext()).load(pokemon.getUrl_img()).into(viewHolder.imageViewPokemon);
 
+        // ad - Utilisation de Picasso pour afficher les images depuis une URL
+        Picasso.with(getContext()).load(pokemon.getUrl_img()).resize(100, 100).into(viewHolder.imageViewPokemon);
 
         return convertView;
     }
