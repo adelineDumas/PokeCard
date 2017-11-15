@@ -6,4 +6,5 @@
     <string name="connexion">Connexion</string>
     <string name="newuser">Nouvel Utilisateur ?</string>
     <string name="collection">Ma Collection</string>
+    <string name="author">By Thomas Chaboud &amp; Adeline Dumas</string>
 </resources>

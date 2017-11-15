@@ -5,7 +5,6 @@ package fr.groupe3.iem.pokecard;
  */
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +19,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.groupe3.iem.pokecard.Entities.Pokemon;
 
 public class MyAsyncTask extends AsyncTask<Object, Void, String> {
 
@@ -43,18 +44,19 @@ public class MyAsyncTask extends AsyncTask<Object, Void, String> {
                 String jsonStr = input.readLine();
 
                 JSONObject jsonObject = new JSONObject(jsonStr);
-
-                // ad - erreur pas un tableau le name
-                JSONArray array = jsonObject.getJSONArray("name");
-
-                Log.d("name", jsonObject.getString("name"));
+                JSONArray array = jsonObject.getJSONArray("pokemon_entries");
+                for (int i=0 ; i<array.length(); i++){
+                    JSONObject p = array.getJSONObject(i);
+                    pokemon.setId_pokemon(p.getInt("entry_number"));
+                    JSONObject pokemonsSpecies = p.getJSONObject("pokemon_species");
+                    pokemon.setName_pokemon(pokemonsSpecies.getString("name"));
+                    pokemon.setUrl_img(pokemonsSpecies.getString("url_img"));
+                    list.add(pokemon);
+                    pokemon = new Pokemon();
+                }
 
                 input.close();
-                pokemon.setName_pokemon(array.getJSONObject(0).getString("name"));
-                list.add(pokemon);
-                pokemon = new Pokemon();
                 urlConnection.disconnect();
-
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

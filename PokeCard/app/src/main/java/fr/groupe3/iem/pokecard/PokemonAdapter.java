@@ -1,6 +1,7 @@
 package fr.groupe3.iem.pokecard;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
+import fr.groupe3.iem.pokecard.Entities.Pokemon;
 
 /**
  * Created by iem on 14/11/2017.
@@ -35,13 +40,13 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.listadapter, parent, false);
             viewHolder.textViewPokemon = (TextView) convertView.findViewById(R.id.textViewNomPokemon);
-            //viewHolder.imageViewPokemon = (ImageView) convertView.findViewById(R.id.imageViewPokemon);
+            viewHolder.imageViewPokemon = (ImageView) convertView.findViewById(R.id.imageViewPokemon);
             convertView.setTag(viewHolder);
         }
 
         Pokemon pokemon = getItem(position);
         viewHolder.textViewPokemon.setText(pokemon.getName_pokemon());
-        //viewHolder.imageViewPokemon.setImageResource();
+        Picasso.with(getContext()).load(pokemon.getUrl_img()).into(viewHolder.imageViewPokemon);
 
 
         return convertView;
@@ -50,7 +55,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
     private static class ViewHolder{
         TextView textViewPokemon;
-        //ImageView imageViewPokemon;
+        ImageView imageViewPokemon;
     }
 
 

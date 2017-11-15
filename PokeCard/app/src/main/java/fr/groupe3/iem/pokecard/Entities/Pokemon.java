@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard;
+package fr.groupe3.iem.pokecard.Entities;
 
 /**
  * Created by iem on 14/11/2017.
