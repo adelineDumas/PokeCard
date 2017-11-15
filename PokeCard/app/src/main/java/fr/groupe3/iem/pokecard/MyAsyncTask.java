@@ -24,36 +24,22 @@ import fr.groupe3.iem.pokecard.Entities.Pokemon;
 
 public class MyAsyncTask extends AsyncTask<Object, Void, String> {
 
-    private List list ;
     private PokemonAdapter pokemonAdapter;
 
     @Override
     protected String doInBackground(Object... params) {
 
         BufferedReader in = null;
-        String textReturn = "";
-        Pokemon pokemon = new Pokemon();
-        list = (ArrayList<Pokemon>) params[0];
-        pokemonAdapter = (PokemonAdapter) params[1];
+        String jsonStr = "";
+
+        pokemonAdapter = (PokemonAdapter) params[0];
         try {
-            URL url = new URL(params[2].toString());
+            URL url = new URL(params[1].toString());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStreamReader isr = new InputStreamReader(urlConnection.getInputStream());
                 BufferedReader input = new BufferedReader(isr);
-                String jsonStr = input.readLine();
-
-                JSONObject jsonObject = new JSONObject(jsonStr);
-                JSONArray array = jsonObject.getJSONArray("pokemon_entries");
-                for (int i=0 ; i<array.length(); i++){
-                    JSONObject p = array.getJSONObject(i);
-                    pokemon.setId_pokemon(p.getInt("entry_number"));
-                    JSONObject pokemonsSpecies = p.getJSONObject("pokemon_species");
-                    pokemon.setName_pokemon(pokemonsSpecies.getString("name"));
-                    pokemon.setUrl_img(pokemonsSpecies.getString("url_img"));
-                    list.add(pokemon);
-                    pokemon = new Pokemon();
-                }
+                jsonStr = input.readLine();
 
                 input.close();
                 urlConnection.disconnect();
@@ -63,17 +49,15 @@ public class MyAsyncTask extends AsyncTask<Object, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        catch (JSONException je){
-            je.printStackTrace();
-        }
 
-        return textReturn;
+        return jsonStr;
 
     }
 
     @Override
     protected void onPostExecute(String s) {
         pokemonAdapter.notifyDataSetChanged();
+        super.onPostExecute(s);
     }
 
 

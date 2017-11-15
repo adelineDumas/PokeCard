@@ -41,7 +41,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
         viewHolder.textViewPokemon.setText(pokemon.getName_pokemon());
 
         // ad - Utilisation de Picasso pour afficher les images depuis une URL
-        Picasso.with(getContext()).load(pokemon.getUrl_img()).resize(100, 100).into(viewHolder.imageViewPokemon);
+        Picasso.with(getContext()).load(pokemon.getUrl_img()).resize(200, 200).into(viewHolder.imageViewPokemon);
 
         return convertView;
     }

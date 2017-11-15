@@ -7,8 +7,7 @@ package fr.groupe3.iem.pokecard.Entities;
 public class Pokemon {
     private int id_pokemon;
     private String name_pokemon;
-    private String abilitie1;
-    private String abilitie2;
+    private String abilitie;
     private int height;
     private int width;
     private String type1;
@@ -21,11 +20,14 @@ public class Pokemon {
     private int base_hp;
     private String url_img;
 
-    public Pokemon(int id_pokemon, String name_pokemon, String abilitie1, String abilitie2, int height, int width, String type1, String type2, int base_speed, int base_spe_atk, int base_spe_def, int base_atk, int base_def, int base_hp, String url_img) {
+    public Pokemon(){
+
+    }
+
+    public Pokemon(int id_pokemon, String name_pokemon, String abilities, int height, int width, String type1, String type2, int base_speed, int base_spe_atk, int base_spe_def, int base_atk, int base_def, int base_hp, String url_img) {
         this.id_pokemon = id_pokemon;
         this.name_pokemon = name_pokemon;
-        this.abilitie1 = abilitie1;
-        this.abilitie2 = abilitie2;
+        this.abilitie = abilities;
         this.height = height;
         this.width = width;
         this.type1 = type1;
@@ -37,10 +39,6 @@ public class Pokemon {
         this.base_def = base_def;
         this.base_hp = base_hp;
         this.url_img = url_img;
-    }
-
-    public Pokemon(){
-
     }
 
     public int getId_pokemon() {
@@ -59,20 +57,12 @@ public class Pokemon {
         this.name_pokemon = name_pokemon;
     }
 
-    public String getAbilitie1() {
-        return abilitie1;
+    public String getAbilitie() {
+        return abilitie;
     }
 
-    public void setAbilitie1(String abilitie1) {
-        this.abilitie1 = abilitie1;
-    }
-
-    public String getAbilitie2() {
-        return abilitie2;
-    }
-
-    public void setAbilitie2(String abilitie2) {
-        this.abilitie2 = abilitie2;
+    public void setAbilitie(String abilities) {
+        this.abilitie = abilities;
     }
 
     public int getHeight() {
