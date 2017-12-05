@@ -11,6 +11,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
 
 public class ConnexionActivity extends AppCompatActivity {
@@ -22,6 +31,8 @@ public class ConnexionActivity extends AppCompatActivity {
     private EditText editTextPasword;
     private Button buttonNewUser;
     private Button buttonConnexion;
+    private LoginButton buttonConnexionFB;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +50,20 @@ public class ConnexionActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog,int id) {}
                     });
             alertDialogBuilder.show();
+        }
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 64206){
+            Intent intent = new Intent().setClass(ConnexionActivity.this    , MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -93,5 +118,27 @@ public class ConnexionActivity extends AppCompatActivity {
 
             }
         });
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+        buttonConnexionFB = (LoginButton) findViewById(fr.groupe3.iem.pokecard.R.id.login_button);
+        buttonConnexionFB.setReadPermissions("email");
+
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {}
+
+            @Override
+            public void onCancel() {}
+
+            @Override
+            public void onError(FacebookException exception) {}
+        });
+
+
+
     }
 }
