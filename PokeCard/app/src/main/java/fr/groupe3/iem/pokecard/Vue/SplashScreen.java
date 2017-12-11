@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard;
+package fr.groupe3.iem.pokecard.Vue;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
+import fr.groupe3.iem.pokecard.R;
 
 public class SplashScreen extends AppCompatActivity {
 

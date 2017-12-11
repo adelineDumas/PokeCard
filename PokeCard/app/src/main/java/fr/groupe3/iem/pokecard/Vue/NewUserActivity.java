@@ -1,7 +1,9 @@
-package fr.groupe3.iem.pokecard;
+package fr.groupe3.iem.pokecard.Vue;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import fr.groupe3.iem.pokecard.R;
 
 public class NewUserActivity extends AppCompatActivity {
 

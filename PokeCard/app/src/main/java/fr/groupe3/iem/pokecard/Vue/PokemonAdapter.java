@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard;
+package fr.groupe3.iem.pokecard.Vue;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
+import fr.groupe3.iem.pokecard.R;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 

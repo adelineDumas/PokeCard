@@ -7,26 +7,17 @@ package fr.groupe3.iem.pokecard.Entities;
 public class Pokemon {
     private int id_pokemon;
     private String name_pokemon;
-    /*private String abilitie;
-    private int height;
-    private int width;
-    private String type1;
-    private String type2;
-    private int base_speed;
-    private int base_spe_atk;
-    private int base_spe_def;
-    private int base_atk;
-    private int base_def;
-    private int base_hp;*/
+    private String login_user;
     private String url_img;
 
     public Pokemon(){
 
     }
 
-    public Pokemon(int id_pokemon, String name_pokemon, String url_img) {
+    public Pokemon(int id_pokemon, String name_pokemon, String login_user, String url_img) {
         this.id_pokemon = id_pokemon;
         this.name_pokemon = name_pokemon;
+        this.login_user = login_user;
         this.url_img = url_img;
     }
 
@@ -46,93 +37,13 @@ public class Pokemon {
         this.name_pokemon = name_pokemon;
     }
 
-    /*public String getAbilitie() {
-        return abilitie;
+    public String getLogin_user() {
+        return login_user;
     }
 
-    public void setAbilitie(String abilities) {
-        this.abilitie = abilities;
+    public void setLogin_user(String login_user) {
+        this.login_user = login_user;
     }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public String getType1() {
-        return type1;
-    }
-
-    public void setType1(String type1) {
-        this.type1 = type1;
-    }
-
-    public String getType2() {
-        return type2;
-    }
-
-    public void setType2(String type2) {
-        this.type2 = type2;
-    }
-
-    public int getBase_speed() {
-        return base_speed;
-    }
-
-    public void setBase_speed(int base_speed) {
-        this.base_speed = base_speed;
-    }
-
-    public int getBase_spe_atk() {
-        return base_spe_atk;
-    }
-
-    public void setBase_spe_atk(int base_spe_atk) {
-        this.base_spe_atk = base_spe_atk;
-    }
-
-    public int getBase_spe_def() {
-        return base_spe_def;
-    }
-
-    public void setBase_spe_def(int base_spe_def) {
-        this.base_spe_def = base_spe_def;
-    }
-
-    public int getBase_atk() {
-        return base_atk;
-    }
-
-    public void setBase_atk(int base_atk) {
-        this.base_atk = base_atk;
-    }
-
-    public int getBase_def() {
-        return base_def;
-    }
-
-    public void setBase_def(int base_def) {
-        this.base_def = base_def;
-    }
-
-    public int getBase_hp() {
-        return base_hp;
-    }
-
-    public void setBase_hp(int base_hp) {
-        this.base_hp = base_hp;
-    }*/
 
     public String getUrl_img() {
         return url_img;

@@ -1,10 +1,13 @@
-package fr.groupe3.iem.pokecard;
+package fr.groupe3.iem.pokecard.Modele;
 
 import android.app.Application;
 
 import java.util.concurrent.TimeUnit;
 
+import fr.groupe3.iem.pokecard.BuildConfig;
+import fr.groupe3.iem.pokecard.Modele.ServicePokemon;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -24,14 +27,15 @@ public class AppPokemon  extends Application{
                         .baseUrl("http://172.20.10.13:3000/")
                         .addConverterFactory(GsonConverterFactory.create());
 
+
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 
         // log
         if (BuildConfig.DEBUG) {
-            //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             // set your desired log level
-            //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            //okBuilder.addInterceptor(logging);
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okBuilder.addInterceptor(logging);
         }
         okBuilder.readTimeout(1, TimeUnit.MINUTES);
 
