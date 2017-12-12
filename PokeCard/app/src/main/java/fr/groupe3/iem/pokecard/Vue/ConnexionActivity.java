@@ -30,6 +30,8 @@ import fr.groupe3.iem.pokecard.R;
 
 public class ConnexionActivity extends AppCompatActivity {
 
+    //region variables
+
     private TextView textViewTitre;
     private TextView textViewUser;
     private TextView textViewPassword;
@@ -39,6 +41,8 @@ public class ConnexionActivity extends AppCompatActivity {
     private Button buttonConnexion;
     private LoginButton buttonConnexionFB;
     private CallbackManager callbackManager;
+
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +119,7 @@ public class ConnexionActivity extends AppCompatActivity {
                     }
 
                     // ad - s'il y a un nom d'utilisateur et un mot de passe
-                    // ad - à rajouter : s'il existe dans la BD
+                    // ad - s'il existe dans la BD
                     if (!editTextUser.getText().toString().isEmpty() && !editTextPasword.getText().toString().isEmpty()) {
                         try {
                             JSONObject json = new JSONObject();
