@@ -2,6 +2,7 @@ package fr.groupe3.iem.pokecard.Vue;
 
 import android.support.v7.app.AppCompatActivity;
 
+
 import fr.groupe3.iem.pokecard.Fragment.BaseFragment;
 import fr.groupe3.iem.pokecard.R;
 

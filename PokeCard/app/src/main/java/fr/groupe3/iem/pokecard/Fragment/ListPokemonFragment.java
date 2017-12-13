@@ -80,7 +80,7 @@ public class ListPokemonFragment extends BaseFragment {
     private void Refresh(){
         list = new ArrayList<>();
 
-        adapter = new PokemonAdapter(ListPokemonFragment.this, list);
+        adapter = new PokemonAdapter(this, list);
 
         listViewPokemon.setAdapter(adapter);
 
