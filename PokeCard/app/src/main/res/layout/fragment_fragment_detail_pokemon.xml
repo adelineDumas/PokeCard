@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.groupe3.iem.pokecard.FragmentDetailPokemon">
+    tools:context="fr.groupe3.iem.pokecard.Fragment.DetailPokemonFragment">
 
 
     <LinearLayout
@@ -15,6 +15,7 @@
             android:id="@+id/imageViewPokemon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:src="@mipmap/ic_launcher_foreground" />
 
         <TextView

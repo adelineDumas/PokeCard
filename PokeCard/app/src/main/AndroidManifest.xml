@@ -23,6 +23,7 @@
         <activity android:name=".Vue.MainActivity" />
         <activity android:name=".Vue.ConnexionActivity" />
         <activity android:name=".Vue.NewUserActivity" />
+        <activity android:name=".Vue.BaseActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -44,7 +45,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Vue.DetailPokemonFragment" />
     </application>
 
 </manifest>

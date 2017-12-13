@@ -13,11 +13,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
+import fr.groupe3.iem.pokecard.Fragment.ListPokemonFragment;
 import fr.groupe3.iem.pokecard.R;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
-    public PokemonAdapter(Context context, List objects) {
+    public PokemonAdapter(ListPokemonFragment context, List objects) {
         super(context,0, objects);
     }
 
