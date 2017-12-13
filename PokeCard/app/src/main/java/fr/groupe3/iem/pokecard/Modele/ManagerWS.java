@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
+import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Vue.PokemonAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +23,10 @@ public class ManagerWS {
     public ManagerWS(PokemonAdapter adapter, List<Pokemon> list) {
         this.adapter = adapter;
         this.listPokemon = list;
+    }
+
+    public ManagerWS(){
+
     }
 
     public void getAllPokemon() {
@@ -60,8 +65,8 @@ public class ManagerWS {
 
     }
 
-    public void getCollectionUser(String login){
-        Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().getCollectionUser(login);
+    public void getCollectionUser(User user){
+        Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().getCollectionUser(user);
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
             @Override
             public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>>response) {
@@ -76,5 +81,6 @@ public class ManagerWS {
             }
         });
     }
+
 
 }

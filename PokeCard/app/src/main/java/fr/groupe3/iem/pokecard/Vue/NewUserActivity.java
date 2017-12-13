@@ -1,12 +1,12 @@
 package fr.groupe3.iem.pokecard.Vue;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +19,7 @@ import fr.groupe3.iem.pokecard.R;
 public class NewUserActivity extends AppCompatActivity {
 
     //region variables
-
+    private ImageView imageViewPokecard ;
     private TextView textViewUser;
     private TextView textViewEmail;
     private TextView textViewPassword;
@@ -47,6 +47,8 @@ public class NewUserActivity extends AppCompatActivity {
      * @author Adeline Dumas - 12/12/2017
      */
     private void init(){
+        imageViewPokecard = (ImageView) findViewById(R.id.imageViewPokecard);
+
         textViewUser = (TextView) findViewById(R.id.textViewUser);
         textViewEmail = (TextView) findViewById(R.id.textViewEmail);
         textViewPassword = (TextView) findViewById(R.id.textViewPassword);

@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.groupe3.iem.pokecard.Vue.ConnexionActivity">
+    tools:context="fr.groupe3.iem.pokecard.Vue.ConnexionActivity"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewTitre"
-            android:layout_width="wrap_content"
+
+        <ImageView
+            android:id="@+id/imageViewPokecard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:fontFamily="casual"
-            android:text="@string/pokecard"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_orange_light"
-            android:textSize="36sp"
-            android:textStyle="bold" />
+            android:src="@drawable/pokecard" />
 
         <TextView
             android:id="@+id/textViewUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="casual"
             android:text="@string/user"
             android:textAlignment="center"
@@ -95,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="15dp" />
 
     </LinearLayout>
 </android.support.v7.widget.LinearLayoutCompat>

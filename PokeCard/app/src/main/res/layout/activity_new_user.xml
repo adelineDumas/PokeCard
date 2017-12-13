@@ -3,25 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.groupe3.iem.pokecard.Vue.NewUserActivity">
+    tools:context="fr.groupe3.iem.pokecard.Vue.NewUserActivity"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewTitre"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/imageViewPokecard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="casual"
-            android:text="@string/pokecard"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_orange_light"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:layout_marginTop="15dp"/>
+            android:src="@drawable/pokecard" />
 
         <TextView
             android:id="@+id/textViewUser"
@@ -32,7 +26,7 @@
             android:text="@string/user"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="15dp"/>
 
         <EditText
             android:id="@+id/editTextUser"
