@@ -2,6 +2,7 @@ package fr.groupe3.iem.pokecard.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class ListPokemonFragment extends BaseFragment {
     private TextView textViewTitre;
     private Context context;
 
-    private List<Pokemon> list;
+    private List<Pokemon> listPokemon;
     private PokemonAdapter adapter;
     private ManagerWS managerWS;
 
@@ -40,12 +41,19 @@ public class ListPokemonFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        listPokemon = new ArrayList<>();
+        adapter = new PokemonAdapter(getActivity(), listPokemon);
+
 
         View v = inflater.inflate(R.layout.fragment_list_pokemon, container, false);
         listViewPokemon = v.findViewById(R.id.listViewPokemon);
-        textViewTitre = v.findViewById(R.id.textViewTitre);
+        listViewPokemon.setAdapter(adapter);
 
-        Refresh();
+        textViewTitre = v.findViewById(R.id.textViewTitre);
+        managerWS = new ManagerWS(listViewPokemon, listPokemon, getActivity());
+
+
+        //Refresh(listPokemon);
 
         try {
             //Intent intent = getIntent();
@@ -55,9 +63,9 @@ public class ListPokemonFragment extends BaseFragment {
                 // ad - appel du Web Service pour affichage de la liste des Pokemons de l'user
                 User user = new User("toto", "azerty");
                 managerWS.getCollectionUser(user);
-            //}
 
-            listViewPokemon.setAdapter(adapter);
+
+            //}
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,15 +85,13 @@ public class ListPokemonFragment extends BaseFragment {
         return v;
     }
 
-    private void Refresh(){
-        list = new ArrayList<>();
-
-        adapter = new PokemonAdapter(this, list);
+    /***private void Refresh(List<Pokemon> pListPokemon){
+        adapter = new PokemonAdapter(getActivity(), pListPokemon);
 
         listViewPokemon.setAdapter(adapter);
 
-        managerWS = new ManagerWS(adapter, list);
-    }
+        managerWS = new ManagerWS(adapter, listPokemon);
+    }*/
 
 }
 

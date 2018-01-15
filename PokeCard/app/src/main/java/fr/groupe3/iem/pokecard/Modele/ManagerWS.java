@@ -1,5 +1,8 @@
 package fr.groupe3.iem.pokecard.Modele;
 
+import android.util.Log;
+import android.widget.ListView;
+
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
@@ -16,13 +19,13 @@ import retrofit2.Response;
 
 public class ManagerWS {
 
-    PokemonDetail pokemonDetail;
+    private PokemonDetail pokemonDetail;
     private List<Pokemon> listPokemon;
-    PokemonAdapter adapter;
+    private PokemonAdapter adapter;
 
-    public ManagerWS(PokemonAdapter adapter, List<Pokemon> list) {
+    public ManagerWS(PokemonAdapter adapter, List<Pokemon> pList) {
         this.adapter = adapter;
-        this.listPokemon = list;
+        this.listPokemon = pList;
     }
 
     public ManagerWS(){
@@ -35,8 +38,8 @@ public class ManagerWS {
             @Override
             public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
                 if (response.isSuccessful()) {
-                    listPokemon.addAll(response.body());
-                    adapter.notifyDataSetChanged();
+                     listPokemon.addAll(response.body());
+                     adapter.notifyDataSetChanged();
                 }
             }
 

@@ -8,18 +8,14 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-<FrameLayout
-    android:id="@+id/testContent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 
     <!-- enlever le include, soit fragment où on met la liste,
     soit un truc genre content ou on lui dit directement le content -->
-    <!-- <include
+    <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/content_main"/>-->
-</FrameLayout>
+        layout="@layout/fragment_list_pokemon"/>
 
 
     <android.support.design.widget.NavigationView

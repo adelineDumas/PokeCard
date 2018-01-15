@@ -13,15 +13,6 @@ import fr.groupe3.iem.pokecard.R;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //region variables
-
-
-    //private List<Pokemon> list;
-    //private PokemonAdapter adapter;
-    //private ManagerWS managerWS;
-
-    //endregion
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

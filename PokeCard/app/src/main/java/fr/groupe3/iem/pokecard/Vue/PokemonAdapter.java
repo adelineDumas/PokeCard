@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
@@ -18,7 +19,7 @@ import fr.groupe3.iem.pokecard.R;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
-    public PokemonAdapter(ListPokemonFragment context, List objects) {
+    public PokemonAdapter(Context context, List<Pokemon> objects) {
         super(context,0, objects);
     }
 
