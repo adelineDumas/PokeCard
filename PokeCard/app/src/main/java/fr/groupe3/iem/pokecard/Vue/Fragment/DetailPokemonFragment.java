@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard.Fragment;
+package fr.groupe3.iem.pokecard.Vue.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,11 +15,15 @@ import fr.groupe3.iem.pokecard.Vue.MainActivity;
 
 public class DetailPokemonFragment extends BaseFragment {
 
+    //region variable
+
     private TextView textViewNomPokemon;
     private ImageView imageViewPokemon;
     private MainActivity context;
 
+    //endregion
 
+    //region methodes
     public static DetailPokemonFragment newInstance() {
         Bundle args = new Bundle();
 
@@ -29,15 +33,16 @@ public class DetailPokemonFragment extends BaseFragment {
         return fragment;
     }
 
+    //region override
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_fragment_detail_pokemon, container, false);
+    public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
+        View v = pInflater.inflate(R.layout.fragment_fragment_detail_pokemon, pContainer, false);
 
         textViewNomPokemon = v.findViewById(R.id.textViewNomPokemon);
         imageViewPokemon = v.findViewById(R.id.imageViewPokemon);
@@ -48,20 +53,24 @@ public class DetailPokemonFragment extends BaseFragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Activity pActivity) {
         super.onAttach(context);
-        context = (MainActivity) activity;
+        context = (MainActivity) pActivity;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = (MainActivity) context;
+    public void onAttach(Context pContext) {
+        super.onAttach(pContext);
+        this.context = (MainActivity) pContext;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
     }
+
+    //endregion
+
+    //endregion
 
 }

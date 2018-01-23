@@ -51,6 +51,7 @@ public class ConnexionActivity extends AppCompatActivity {
 
     //endregion
 
+    //region methodes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,18 +116,14 @@ public class ConnexionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (ConnexionInternet.isConnectedInternet(ConnexionActivity.this)) {
-
-
                     // ad - s'il n'y a pas de nom d'utilisateur rentré : on affiche un toast
                     if (editTextUser.getText().toString().isEmpty()) {
                         Toast.makeText(ConnexionActivity.this, "Pas de nom d'utilisateur", Toast.LENGTH_SHORT).show();
                     }
-
                     // ad - s'il n'y a pas de mot de passe de rentré : on affiche un toast
                     if (editTextPasword.getText().toString().isEmpty()) {
                         Toast.makeText(ConnexionActivity.this, "Pas de mot passe", Toast.LENGTH_SHORT).show();
                     }
-
                     // ad - s'il y a un nom d'utilisateur et un mot de passe
                     if (!editTextUser.getText().toString().isEmpty() && !editTextPasword.getText().toString().isEmpty()) {
                         try {
@@ -136,9 +133,7 @@ public class ConnexionActivity extends AppCompatActivity {
                             json.put("password", editTextPasword.getText().toString());
                             //ad - on appelle la méthode execute pour appeler la route verifylogin en post
                             new PostRequest().execute("verifylogin", json);
-
                             Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
-
                             //ad - on vérifie si le login et le mot de passe existent
                             if (new PostRequest().execute("verifylogin", json).get().contains("\"password\":false") || new PostRequest().execute("verifylogin", json).get().contains("\"user\":false")) {
                                 if (new PostRequest().execute("verifylogin", json).get().contains("\"password\":false")) {
@@ -161,14 +156,11 @@ public class ConnexionActivity extends AppCompatActivity {
 
                         }
                     }
-
                 } else {
                     Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -194,4 +186,8 @@ public class ConnexionActivity extends AppCompatActivity {
 
 
     }
+
+    //endregion
+
 }
+

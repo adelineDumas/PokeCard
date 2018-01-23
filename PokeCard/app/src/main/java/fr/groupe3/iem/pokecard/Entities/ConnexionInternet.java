@@ -12,19 +12,20 @@ import android.net.NetworkInfo.State;
 
 public class ConnexionInternet {
 
-        public static boolean isConnectedInternet(Activity activity)
-        {
-            ConnectivityManager connectivityManager = (ConnectivityManager)activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            if (networkInfo != null)
-            {
-                State networkState = networkInfo.getState();
-                if (networkState.compareTo(State.CONNECTED) == 0)
-                {
-                    return true;
-                }
-                else return false;
-            }
-            else return false;
-        }
+    /***
+     * Détermine si nous avons accès à Internet
+     * @param pActivity
+     * @return true si il y a internet
+     * @author Thomas Chaboud
+     */
+    public static boolean isConnectedInternet(Activity pActivity) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) pActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null) {
+            State networkState = networkInfo.getState();
+            if (networkState.compareTo(State.CONNECTED) == 0) {
+                return true;
+            } else return false;
+        } else return false;
+    }
 }

@@ -1,9 +1,13 @@
 package fr.groupe3.iem.pokecard.Vue;
 
+
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 
-import fr.groupe3.iem.pokecard.Fragment.BaseFragment;
 import fr.groupe3.iem.pokecard.R;
 
 /**
@@ -12,11 +16,19 @@ import fr.groupe3.iem.pokecard.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public void showFragment(BaseFragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentMain, fragment).addToBackStack("Nav").commit();
+    //region methodes
+    public void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.contentMain, fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 
     public void clearBackstack() {
-        //getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
+
+    //endregion
 }

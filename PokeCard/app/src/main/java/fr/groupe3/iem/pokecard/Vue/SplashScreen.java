@@ -13,10 +13,12 @@ import fr.groupe3.iem.pokecard.R;
 
 public class SplashScreen extends AppCompatActivity {
 
+    //region variables
     // ad -- Splash screen timer
     private static int SPLASH_TIME_OUT = 6000;
+    //endregion
 
-
+    //region methodes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,8 @@ public class SplashScreen extends AppCompatActivity {
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
         Glide.with(this).load(R.raw.salameche).into(imageViewTarget);
     }
+
+    //endregion
 }
 
 

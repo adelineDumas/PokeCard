@@ -10,19 +10,21 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
-import fr.groupe3.iem.pokecard.Fragment.ListPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonFragment;
 import fr.groupe3.iem.pokecard.R;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
-    public PokemonAdapter(Context context, List<Pokemon> objects) {
+    //region constructeur
+    public PokemonAdapter(Context context ,List<Pokemon> objects) {
         super(context,0, objects);
     }
+    //endregion
 
+    //region methodes
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
@@ -49,11 +51,15 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
         return convertView;
     }
 
+    //endregion
 
+    //region classe
     private static class ViewHolder{
         TextView textViewPokemon;
         ImageView imageViewPokemon;
     }
+    //endregion
+
 
 
 }

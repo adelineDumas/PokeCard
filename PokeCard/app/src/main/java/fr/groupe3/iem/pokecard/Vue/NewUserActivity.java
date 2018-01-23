@@ -31,6 +31,8 @@ public class NewUserActivity extends AppCompatActivity {
 
     //endregion
 
+
+    //region methodes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,4 +113,6 @@ public class NewUserActivity extends AppCompatActivity {
             }
         });
     }
+
+    //endregion
 }

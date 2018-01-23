@@ -6,6 +6,8 @@ package fr.groupe3.iem.pokecard.Entities;
 
 public class PokemonDetail {
 
+    //region variable
+
     private int id_pokemon;
     private String name_pokemon;
     private String abilitie1;
@@ -22,6 +24,10 @@ public class PokemonDetail {
     private int base_hp;*/
     private String url_img;
 
+    //endregion
+
+    //region constructeur
+
     public PokemonDetail(){
 
     }
@@ -37,6 +43,10 @@ public class PokemonDetail {
         this.type2 = type2;
         this.url_img = url_img;
     }
+
+    //endregion
+
+    //region getters setters
 
     public int getId_pokemon() {
         return id_pokemon;
@@ -109,4 +119,6 @@ public class PokemonDetail {
     public void setUrl_img(String url_img) {
         this.url_img = url_img;
     }
+
+    //endregion
 }

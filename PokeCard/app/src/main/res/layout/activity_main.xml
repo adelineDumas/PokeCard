@@ -8,14 +8,11 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
-
-    <!-- enlever le include, soit fragment où on met la liste,
-    soit un truc genre content ou on lui dit directement le content -->
-    <include
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/fragment_list_pokemon"/>
+        class="fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonFragment"
+        android:id="@+id/contentMain"/>
 
 
     <android.support.design.widget.NavigationView

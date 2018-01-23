@@ -16,17 +16,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class AppPokemon  extends Application{
-    private static ServicePokemon pokemonService;
 
+    //region variables
+    private static ServicePokemon pokemonService;
+    //endregion
+
+    //region methodes
+
+    //region override
     @Override
     public void onCreate() {
         super.onCreate();
 
-        Retrofit.Builder mBuilder =
+        /*Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
                         .baseUrl("http://172.20.10.13:3000/")
-                        .addConverterFactory(GsonConverterFactory.create());
+                        .addConverterFactory(GsonConverterFactory.create());*/
 
+
+        Retrofit.Builder mBuilder =
+                new Retrofit.Builder()
+                        .baseUrl("http://172.31.246.176:3000/")
+                        .addConverterFactory(GsonConverterFactory.create());
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 
@@ -47,8 +58,12 @@ public class AppPokemon  extends Application{
 
     }
 
+    //endregion
+
     public static ServicePokemon getPokemonService() {
         return pokemonService;
     }
+
+    //endregion
 }
 
