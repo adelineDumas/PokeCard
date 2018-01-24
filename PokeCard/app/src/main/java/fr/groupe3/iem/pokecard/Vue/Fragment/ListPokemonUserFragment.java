@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class ListPokemonUserFragment extends BaseFragment {
     private ListView listViewPokemon;
     private TextView textViewTitre;
     private List<Pokemon> listPokemon;
+
+    private LinearLayout loading;
 
     private PokemonAdapter adapter;
     private ManagerWS managerWS;
@@ -50,12 +53,14 @@ public class ListPokemonUserFragment extends BaseFragment {
 
         textViewTitre = v.findViewById(R.id.textViewTitre);
         listViewPokemon = v.findViewById(R.id.listViewPokemon);
+        loading = (LinearLayout) v.findViewById(R.id.loading);
+
         listPokemon = new ArrayList<>();
         adapter = new PokemonAdapter(getActivity(), listPokemon);
         managerWS = new ManagerWS(adapter, listPokemon);
 
         User user = new User("toto", "azerty");
-        managerWS.getCollectionUser(user, this);
+        managerWS.getCollectionUser(user, this, loading);
         return v;
     }
 

@@ -1,5 +1,8 @@
 package fr.groupe3.iem.pokecard.Modele;
 
+import android.view.View;
+import android.widget.LinearLayout;
+
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
@@ -50,12 +53,13 @@ public class ManagerWS {
      * Permet de récupérer tous les Pokemons
      * @author : Adeline Dumas
      */
-    public void getAllPokemon(final ListAllPokemonFragment callback) {
+    public void getAllPokemon(final ListAllPokemonFragment callback,final LinearLayout pLoading) {
         Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().getAllPokemon();
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
             @Override
             public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
                 if (response.isSuccessful()) {
+                     pLoading.setVisibility(View.GONE);
                      listPokemon = response.body();
                      adapter.notifyDataSetChanged();
                      callback.Refresh(listPokemon);
@@ -74,12 +78,13 @@ public class ManagerWS {
      * @param pId
      * @author : Adeline Dumas
      */
-    public void getOnePokemon(int pId,final DetailPokemonFragment callback ) {
+    public void getOnePokemon(int pId,final DetailPokemonFragment callback , final LinearLayout pLoading) {
         pokemonDetail = new PokemonDetail();
         Call<PokemonDetail> pokemonCall = AppPokemon.getPokemonService().getOnePokemon(pId);
         pokemonCall.enqueue(new Callback<PokemonDetail>() {
             @Override
             public void onResponse(Call<PokemonDetail> call, Response<PokemonDetail> response) {
+                pLoading.setVisibility(View.GONE);
                 pokemonDetail = response.body();
                 callback.Refresh(pokemonDetail);
             }
@@ -97,11 +102,12 @@ public class ManagerWS {
      * @param pUser
      * @author : Adeline Dumas
      */
-    public void getCollectionUser(User pUser, final ListPokemonUserFragment callback){
+    public void getCollectionUser(User pUser, final ListPokemonUserFragment callback, final LinearLayout pLoading){
         Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().getCollectionUser(pUser);
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
             @Override
             public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>>response) {
+                pLoading.setVisibility(View.GONE);
                 listPokemon.addAll(response.body());
                 adapter.notifyDataSetChanged();
                 callback.Refresh(listPokemon);

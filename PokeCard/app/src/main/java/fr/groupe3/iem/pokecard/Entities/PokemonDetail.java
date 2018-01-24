@@ -8,20 +8,14 @@ public class PokemonDetail {
 
     //region variable
 
-    private int id;
-    private String name;
-    private String abilitie1;
-    private String abilitie2;
+    private int id_pokemon;
+    private String name_pokemon;
+    private String ability1;
+    private String ability2;
     private String height;
     private String weight;
     private String type1;
     private String type2;
-    /*private int base_speed;
-    private int base_spe_atk;
-    private int base_spe_def;
-    private int base_atk;
-    private int base_def;
-    private int base_hp;*/
     private String url_img;
 
     //endregion
@@ -32,11 +26,11 @@ public class PokemonDetail {
 
     }
 
-    public PokemonDetail(int id_pokemon, String name_pokemon, String abilitie1, String abilitie2, String height, String weight, String type1, String type2, String url_img) {
-        this.id = id_pokemon;
-        this.name = name_pokemon;
-        this.abilitie1 = abilitie1;
-        this.abilitie2 = abilitie2;
+    public PokemonDetail(int id_pokemon, String name_pokemon, String ability1, String ability2, String height, String weight, String type1, String type2, String url_img) {
+        this.id_pokemon = id_pokemon;
+        this.name_pokemon = name_pokemon;
+        this.ability1 = ability1;
+        this.ability2 = ability2;
         this.height = height;
         this.weight = weight;
         this.type1 = type1;
@@ -46,38 +40,38 @@ public class PokemonDetail {
 
     //endregion
 
-    //region getters setters
+    //region methodes
 
-    public int getId() {
-        return id;
+    public int getId_pokemon() {
+        return id_pokemon;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_pokemon(int id_pokemon) {
+        this.id_pokemon = id_pokemon;
     }
 
-    public String getName() {
-        return name;
+    public String getName_pokemon() {
+        return name_pokemon;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName_pokemon(String name_pokemon) {
+        this.name_pokemon = name_pokemon;
     }
 
-    public String getAbilitie1() {
-        return abilitie1;
+    public String getAbility1() {
+        return ability1;
     }
 
-    public void setAbilitie1(String abilitie1) {
-        this.abilitie1 = abilitie1;
+    public void setAbility1(String ability1) {
+        this.ability1 = ability1;
     }
 
-    public String getAbilitie2() {
-        return abilitie2;
+    public String getAbility2() {
+        return ability2;
     }
 
-    public void setAbilitie2(String abilitie2) {
-        this.abilitie2 = abilitie2;
+    public void setAbility2(String ability2) {
+        this.ability2 = ability2;
     }
 
     public String getHeight() {
@@ -92,8 +86,8 @@ public class PokemonDetail {
         return weight;
     }
 
-    public void setWeight(String width) {
-        this.weight = width;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
     public String getType1() {
@@ -119,6 +113,7 @@ public class PokemonDetail {
     public void setUrl_img(String url_img) {
         this.url_img = url_img;
     }
+
 
     //endregion
 }
