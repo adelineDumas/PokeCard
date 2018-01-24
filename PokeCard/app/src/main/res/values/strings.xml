@@ -9,6 +9,7 @@
     <string name="email">Email</string>
     <string name="alreadyCompte">Déjà un compte ?</string>
     <string name="collection">Ma Collection</string>
+    <string name="allPokemon">Tous les Pokemons</string>
     <string name="author">By Thomas Chaboud &amp; Adeline Dumas</string>
     <string name="facebook_app_id">729371463940119</string>
     <string name="fb_login_protocol_scheme">fb729371463940119</string>
@@ -21,4 +22,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_pokemon_detail_adapter">PokemonDetailAdapter</string>
 </resources>

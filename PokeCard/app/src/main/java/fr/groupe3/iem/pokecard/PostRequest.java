@@ -18,6 +18,7 @@ public class PostRequest extends AsyncTask<Object, String, String> {
         protected String doInBackground(Object... data) {
         String line="";
         try {
+            //URL url = new URL("http://192.168.1.14:3000/"+ data[0]);
             URL url = new URL("http://172.31.246.176:3000/"+ data[0]);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");

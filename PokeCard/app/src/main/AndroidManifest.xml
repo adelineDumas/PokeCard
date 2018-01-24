@@ -45,6 +45,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".Vue.Fragment.ListAllPokemonFragment" />
+        <activity
+            android:name=".Vue.PokemonDetailAdapter"
+            android:label="@string/title_activity_pokemon_detail_adapter"
+            android:theme="@style/NoActionBar"></activity>
     </application>
 
 </manifest>

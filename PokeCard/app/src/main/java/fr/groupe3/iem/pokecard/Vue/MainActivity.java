@@ -9,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import fr.groupe3.iem.pokecard.R;
-import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
 
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -20,7 +21,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showFragment(ListPokemonFragment.newInstance());
+        showFragment(ListPokemonUserFragment.newInstance());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,16 +72,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            //textViewTitre.setText("Tous les Pokemons");
-            //Refresh();
-            //managerWS.getAllPokemon();
-
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_allPokemon) {
+            clearBackstack();
+            showFragment(ListAllPokemonFragment.newInstance());
+            getSupportActionBar().setTitle("Tous les Pokemons");
+        } else if (id == R.id.nav_MaCollection) {
+            clearBackstack();
+            showFragment(ListPokemonUserFragment.newInstance());
+            getSupportActionBar().setTitle("Mes Pokemons");
+        } else if (id == R.id.nav_amis) {
+            clearBackstack();
+            //showFragment(AmisFragment.newInstance());
+            getSupportActionBar().setTitle("Mes amis");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

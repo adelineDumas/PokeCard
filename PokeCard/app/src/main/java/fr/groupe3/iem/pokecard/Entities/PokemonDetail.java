@@ -8,12 +8,12 @@ public class PokemonDetail {
 
     //region variable
 
-    private int id_pokemon;
-    private String name_pokemon;
+    private int id;
+    private String name;
     private String abilitie1;
     private String abilitie2;
-    private int height;
-    private int width;
+    private String height;
+    private String weight;
     private String type1;
     private String type2;
     /*private int base_speed;
@@ -32,13 +32,13 @@ public class PokemonDetail {
 
     }
 
-    public PokemonDetail(int id_pokemon, String name_pokemon, String abilitie1, String abilitie2, int height, int width, String type1, String type2, String url_img) {
-        this.id_pokemon = id_pokemon;
-        this.name_pokemon = name_pokemon;
+    public PokemonDetail(int id_pokemon, String name_pokemon, String abilitie1, String abilitie2, String height, String weight, String type1, String type2, String url_img) {
+        this.id = id_pokemon;
+        this.name = name_pokemon;
         this.abilitie1 = abilitie1;
         this.abilitie2 = abilitie2;
         this.height = height;
-        this.width = width;
+        this.weight = weight;
         this.type1 = type1;
         this.type2 = type2;
         this.url_img = url_img;
@@ -48,20 +48,20 @@ public class PokemonDetail {
 
     //region getters setters
 
-    public int getId_pokemon() {
-        return id_pokemon;
+    public int getId() {
+        return id;
     }
 
-    public void setId_pokemon(int id_pokemon) {
-        this.id_pokemon = id_pokemon;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getName_pokemon() {
-        return name_pokemon;
+    public String getName() {
+        return name;
     }
 
-    public void setName_pokemon(String name_pokemon) {
-        this.name_pokemon = name_pokemon;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAbilitie1() {
@@ -80,20 +80,20 @@ public class PokemonDetail {
         this.abilitie2 = abilitie2;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public int getWidth() {
-        return width;
+    public String getWeight() {
+        return weight;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setWeight(String width) {
+        this.weight = width;
     }
 
     public String getType1() {

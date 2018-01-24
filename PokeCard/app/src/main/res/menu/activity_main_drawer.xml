@@ -5,7 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_MaCollection"
+            android:title="Mes Pokemons" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_amis"
+            android:title="Mes amis" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_allPokemon"
             android:title="Tous les Pokemons" />
     </group>
 

@@ -22,7 +22,7 @@ public interface ServicePokemon {
     @GET("pokedex")
     Call<List<Pokemon>> getAllPokemon();
 
-    @GET("pokemon/{id}")
+    @GET("pokemon/{id_pokemon}")
     Call<PokemonDetail> getOnePokemon(@Path("id_pokemon") int id);
 
     /*@GET("collectionuser/{login_user}")

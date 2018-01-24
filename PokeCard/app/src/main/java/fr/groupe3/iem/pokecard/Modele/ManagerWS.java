@@ -1,13 +1,13 @@
 package fr.groupe3.iem.pokecard.Modele;
 
-import android.util.Log;
-
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.User;
-import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
 import fr.groupe3.iem.pokecard.Vue.PokemonAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +24,6 @@ public class ManagerWS {
     private PokemonDetail pokemonDetail;
     private List<Pokemon> listPokemon;
     private PokemonAdapter adapter;
-    private boolean isFinished;
 
     //endregion
 
@@ -33,7 +32,10 @@ public class ManagerWS {
     public ManagerWS(PokemonAdapter adapter, List<Pokemon> pList) {
         this.adapter = adapter;
         this.listPokemon = pList;
-        isFinished = false;
+    }
+
+    public ManagerWS(PokemonDetail pPokemonDetail) {
+        this.pokemonDetail = pPokemonDetail;
     }
 
     public ManagerWS(){
@@ -48,7 +50,7 @@ public class ManagerWS {
      * Permet de récupérer tous les Pokemons
      * @author : Adeline Dumas
      */
-    public void getAllPokemon(final ListPokemonFragment callback) {
+    public void getAllPokemon(final ListAllPokemonFragment callback) {
         Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().getAllPokemon();
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
             @Override
@@ -72,15 +74,14 @@ public class ManagerWS {
      * @param pId
      * @author : Adeline Dumas
      */
-    public void getOnePokemon(int pId) {
+    public void getOnePokemon(int pId,final DetailPokemonFragment callback ) {
         pokemonDetail = new PokemonDetail();
         Call<PokemonDetail> pokemonCall = AppPokemon.getPokemonService().getOnePokemon(pId);
         pokemonCall.enqueue(new Callback<PokemonDetail>() {
             @Override
             public void onResponse(Call<PokemonDetail> call, Response<PokemonDetail> response) {
                 pokemonDetail = response.body();
-                adapter.notifyDataSetChanged();
-                isFinished = true;
+                callback.Refresh(pokemonDetail);
             }
 
             @Override
@@ -96,16 +97,15 @@ public class ManagerWS {
      * @param pUser
      * @author : Adeline Dumas
      */
-    public void getCollectionUser(User pUser){
+    public void getCollectionUser(User pUser, final ListPokemonUserFragment callback){
         Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().getCollectionUser(pUser);
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
             @Override
             public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>>response) {
-                //Log.d("response", response.body().toString());
                 listPokemon.addAll(response.body());
-                //Log.d("listpokemon", listPokemon.get(0).toString());
                 adapter.notifyDataSetChanged();
-                isFinished = true;
+                callback.Refresh(listPokemon);
+
 
             }
 
@@ -114,15 +114,6 @@ public class ManagerWS {
 
             }
         });
-    }
-
-    public boolean isFinished(){
-        if(isFinished){
-            isFinished = false;
-            Log.d("finished", "finish");
-            return true;
-        }
-        return isFinished;
     }
 
     //endregion
