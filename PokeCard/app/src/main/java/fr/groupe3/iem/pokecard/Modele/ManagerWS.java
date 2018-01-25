@@ -1,6 +1,7 @@
 package fr.groupe3.iem.pokecard.Modele;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.List;

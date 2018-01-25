@@ -7,14 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
+import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
 import fr.groupe3.iem.pokecard.Modele.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.PokemonAdapter;
@@ -27,7 +32,9 @@ public class ListAllPokemonFragment extends BaseFragment {
     private TextView textViewTitre;
     private List<Pokemon> listPokemon;
 
-    private LinearLayout loading;
+    private LinearLayout linearLayoutLoading;
+    private ImageView imageViewloading;
+    private RandomGifGenerator randomGifGenerator;
 
     private PokemonAdapter adapter;
     private ManagerWS managerWS;
@@ -55,13 +62,17 @@ public class ListAllPokemonFragment extends BaseFragment {
 
         textViewTitre = v.findViewById(R.id.textViewTitre);
         listViewPokemon = v.findViewById(R.id.listViewPokemon);
-        loading = (LinearLayout) v.findViewById(R.id.loading);
+        imageViewloading = (ImageView) v.findViewById(R.id.imageViewLoading);
+        randomGifGenerator = new RandomGifGenerator();
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageViewloading);
+        Glide.with(this).load(randomGifGenerator.ReturnUrlGif()).into(imageViewTarget);
+        linearLayoutLoading = (LinearLayout) v.findViewById(R.id.loading);
 
         listPokemon = new ArrayList<>();
         adapter = new PokemonAdapter(getActivity(), listPokemon);
         managerWS = new ManagerWS(adapter, listPokemon);
 
-        managerWS.getAllPokemon(this, loading);
+        managerWS.getAllPokemon(this, linearLayoutLoading);
         return v;
     }
 

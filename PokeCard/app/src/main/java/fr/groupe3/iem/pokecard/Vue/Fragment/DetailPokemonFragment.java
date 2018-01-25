@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.picasso.Picasso;
 
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
+import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
 import fr.groupe3.iem.pokecard.Modele.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 
@@ -34,7 +37,9 @@ public class DetailPokemonFragment extends BaseFragment {
     private ImageView imageViewPokemon;
     private Button buttonEchanger;
 
-    private LinearLayout loading;
+    private LinearLayout linearLayoutLoading;
+    private ImageView imageViewloading;
+    private RandomGifGenerator randomGifGenerator;
 
     private PokemonDetail pokemonDetail;
     private ManagerWS managerWS;
@@ -58,7 +63,11 @@ public class DetailPokemonFragment extends BaseFragment {
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
         View v = pInflater.inflate(R.layout.fragment_detail_pokemon, pContainer, false);
 
-        loading = (LinearLayout) v.findViewById(R.id.loading);
+        imageViewloading = (ImageView) v.findViewById(R.id.imageViewLoading);
+        randomGifGenerator = new RandomGifGenerator();
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageViewloading);
+        Glide.with(this).load(randomGifGenerator.ReturnUrlGif()).into(imageViewTarget);
+        linearLayoutLoading = (LinearLayout) v.findViewById(R.id.loading);
 
         textViewNom = (TextView) v.findViewById(R.id.textViewNom);
         imageViewPokemon = (ImageView) v.findViewById(R.id.imageViewPokemon);
@@ -84,7 +93,7 @@ public class DetailPokemonFragment extends BaseFragment {
         Bundle data = getArguments();
         pokemonDetail = new PokemonDetail();
         managerWS = new ManagerWS(pokemonDetail);
-        managerWS.getOnePokemon(data.getInt("id"), this, loading);
+        managerWS.getOnePokemon(data.getInt("id"), this, linearLayoutLoading);
 
 
         return v;
