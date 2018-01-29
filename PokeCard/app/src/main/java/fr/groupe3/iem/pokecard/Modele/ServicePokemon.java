@@ -4,9 +4,11 @@ import org.json.JSONArray;
 
 import java.util.List;
 
+import fr.groupe3.iem.pokecard.Entities.Echange;
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.User;
+import fr.groupe3.iem.pokecard.Entities.UserEchange;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -28,8 +30,17 @@ public interface ServicePokemon {
     /*@GET("collectionuser/{login_user}")
     Call<List<Pokemon>> getCollectionUser(@Path("login_user") String login);*/
 
+    @POST("verifylogin")
+    Call<User> verifyLogin(@Body User user);
+
     @POST("collectionuser")
     Call<List<Pokemon>> getCollectionUser(@Body User user);
+
+    @POST("exchangereq")
+    Call<List<Echange>> EchangeReq(@Body Echange echange);
+
+    @POST("exchangewith")
+    Call<String> EchangeWith(@Body UserEchange userEchange);
 
 
 

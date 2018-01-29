@@ -1,5 +1,7 @@
 package fr.groupe3.iem.pokecard.Vue;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,13 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.R;
+import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
 
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView textViewUser;
 
     //region methodes
     @Override
@@ -30,6 +39,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        textViewUser = (TextView) header.findViewById(R.id.textViewUserNav);
+        textViewUser.setText(User.getINSTANCE().getLogin());
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
     }
@@ -84,6 +96,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             clearBackstack();
             //showFragment(AmisFragment.newInstance());
             getSupportActionBar().setTitle("Mes amis");
+        } else if (id == R.id.nav_allEchange) {
+            clearBackstack();
+            showFragment(EchangeFragment.newInstance());
+            getSupportActionBar().setTitle("Echange");
+        } else if (id == R.id.nav_Deconnexion) {
+            clearBackstack();
+            Intent intent = new Intent().setClass(MainActivity.this, ConnexionActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

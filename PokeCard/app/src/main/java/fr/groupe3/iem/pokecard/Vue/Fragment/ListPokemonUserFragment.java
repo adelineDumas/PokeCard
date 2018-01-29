@@ -70,26 +70,31 @@ public class ListPokemonUserFragment extends BaseFragment {
         adapter = new PokemonAdapter(getActivity(), listPokemon);
         managerWS = new ManagerWS(adapter, listPokemon);
 
-        User user = new User("toto", "azerty");
-        managerWS.getCollectionUser(user, this, linearLayoutLoading);
+
+        managerWS.getCollectionUser(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()), this, linearLayoutLoading);
         return v;
     }
 
     //endregion
 
     public void Refresh(final List<Pokemon> pListPokemon){
-        PokemonAdapter adapter  = new PokemonAdapter(getActivity(), pListPokemon);
-        listViewPokemon = (ListView) v.findViewById(R.id.listViewPokemon);
-        listViewPokemon.setAdapter(adapter);
+        if (pListPokemon.size() >= 1 ) {
+            PokemonAdapter adapter = new PokemonAdapter(getActivity(), pListPokemon);
+            listViewPokemon = (ListView) v.findViewById(R.id.listViewPokemon);
+            listViewPokemon.setAdapter(adapter);
 
-        listViewPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle data = new Bundle();
-                data.putInt("id", pListPokemon.get(i).getId_pokemon());
-                showFragment(DetailPokemonFragment.newInstance(data));
-            }
-        });
+            listViewPokemon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Bundle data = new Bundle();
+                    data.putInt("id", pListPokemon.get(i).getId_pokemon());
+                    showFragment(DetailPokemonFragment.newInstance(data));
+                }
+            });
+        }
+        else if(pListPokemon.size() == 0 ){
+            textViewTitre.setText("Vous n'avez pas de Pokemon dans votre collection.");
+        }
     }
 
     //endregion

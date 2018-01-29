@@ -14,11 +14,25 @@ public class User {
     //endregion
 
     //region constructeur
+
+    private User(){
+
+    }
+
     public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
     //endregion
+
+    private static User INSTANCE = null;
+
+    public static User getINSTANCE(){
+        if (INSTANCE == null){
+            INSTANCE = new User();
+        }
+        return INSTANCE;
+    }
 
     //region getters setters
 

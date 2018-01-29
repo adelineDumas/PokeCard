@@ -34,15 +34,15 @@ public class AppPokemon  extends Application{
                         .addConverterFactory(GsonConverterFactory.create());*/
 
 
-        /*Retrofit.Builder mBuilder =
-                new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.14:3000/")
-                        .addConverterFactory(GsonConverterFactory.create());*/
-
         Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
-                        .baseUrl("http://172.31.246.176:3000/")
+                        .baseUrl("http://192.168.1.14:3000/")
                         .addConverterFactory(GsonConverterFactory.create());
+
+        /*Retrofit.Builder mBuilder =
+                new Retrofit.Builder()
+                        .baseUrl("http://172.31.246.176:3000/")
+                        .addConverterFactory(GsonConverterFactory.create());*/
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 

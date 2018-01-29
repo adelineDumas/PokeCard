@@ -21,17 +21,14 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONObject;
-
-import java.util.List;
-
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
-import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.User;
+import fr.groupe3.iem.pokecard.Modele.AppPokemon;
 import fr.groupe3.iem.pokecard.Modele.ManagerWS;
-import fr.groupe3.iem.pokecard.PostRequest;
 import fr.groupe3.iem.pokecard.R;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConnexionActivity extends AppCompatActivity {
 
@@ -99,7 +96,9 @@ public class ConnexionActivity extends AppCompatActivity {
         textViewPassword = (TextView) findViewById(R.id.textViewPassword);
 
         editTextUser = (EditText) findViewById(R.id.editTextUser);
+        editTextUser.setText("");
         editTextPasword = (EditText) findViewById(R.id.editTextPassword);
+        editTextPasword.setText("");
 
         buttonNewUser = (Button) findViewById(R.id.buttonnewUser);
         buttonConnexion = (Button) findViewById(R.id.buttonConnexion);
@@ -116,7 +115,6 @@ public class ConnexionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (ConnexionInternet.isConnectedInternet(ConnexionActivity.this)) {
-                    // ad - s'il n'y a pas de nom d'utilisateur rentré : on affiche un toast
                     if (editTextUser.getText().toString().isEmpty()) {
                         Toast.makeText(ConnexionActivity.this, "Pas de nom d'utilisateur", Toast.LENGTH_SHORT).show();
                     }
@@ -126,40 +124,35 @@ public class ConnexionActivity extends AppCompatActivity {
                     }
                     // ad - s'il y a un nom d'utilisateur et un mot de passe
                     if (!editTextUser.getText().toString().isEmpty() && !editTextPasword.getText().toString().isEmpty()) {
-                        try {
-                            //ad - on créée un json
-                            JSONObject json = new JSONObject();
-                            json.put("login", editTextUser.getText().toString());
-                            json.put("password", editTextPasword.getText().toString());
-                            //ad - on appelle la méthode execute pour appeler la route verifylogin en post
-                            new PostRequest().execute("verifylogin", json);
-                            Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
-                            //ad - on vérifie si le login et le mot de passe existent
-                            if (new PostRequest().execute("verifylogin", json).get().contains("\"password\":false") || new PostRequest().execute("verifylogin", json).get().contains("\"user\":false")) {
-                                if (new PostRequest().execute("verifylogin", json).get().contains("\"password\":false")) {
-                                    Toast.makeText(ConnexionActivity.this, "Le mot de passe est incorrect", Toast.LENGTH_SHORT).show();
+                        User.getINSTANCE().setLogin(editTextUser.getText().toString());
+                        User.getINSTANCE().setPassword(editTextPasword.getText().toString());
+                        final Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
+                        Call<User> user = AppPokemon.getPokemonService().verifyLogin(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()));
+                        user.enqueue(new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                if (response.body().getPassword()!= null) {
+                                    if (response.body().getPassword().contains("false")) {
+                                        Toast.makeText(ConnexionActivity.this, "Le mot de passe est incorrect", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        startActivity(intent);
+                                    }
                                 }
-                                if (new PostRequest().execute("verifylogin", json).get().contains("\"user\":false")) {
+                                else if (response.body().getPassword()== null && response.body().getLogin()== null){
                                     Toast.makeText(ConnexionActivity.this, "Cet utilisateur n'existe pas.", Toast.LENGTH_SHORT).show();
                                 }
                             }
-                            //ad - si l'utilisateur existe
-                            else {
-                                //ad - on passe les informations de l'utilisateur à la MainActivity
-                                intent.putExtra("Login", editTextUser.getText().toString());
-                                intent.putExtra("Password",editTextPasword.getText().toString());
-                                //ad - on affiche la MainActivity
-                                startActivity(intent);
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
                             }
-
-                        } catch (Exception e) {
-
-                        }
+                        });
                     }
                 } else {
-                    Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
         });
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -167,6 +160,13 @@ public class ConnexionActivity extends AppCompatActivity {
 
         buttonConnexionFB = (LoginButton) findViewById(fr.groupe3.iem.pokecard.R.id.login_button);
         buttonConnexionFB.setReadPermissions("email");
+        buttonConnexionFB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         callbackManager = CallbackManager.Factory.create();
 

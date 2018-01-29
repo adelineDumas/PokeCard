@@ -1,6 +1,9 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +46,7 @@ public class DetailPokemonFragment extends BaseFragment {
 
     private PokemonDetail pokemonDetail;
     private ManagerWS managerWS;
+    private Context context;
     //endregion
 
     //region methodes
@@ -83,17 +87,12 @@ public class DetailPokemonFragment extends BaseFragment {
         textViewHeight1= (TextView) v.findViewById(R.id.textViewHeight1);
         buttonEchanger = (Button) v.findViewById(R.id.buttonEchanger);
 
-        buttonEchanger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showFragment(ListAllPokemonFragment.newInstance());
-            }
-        });
-
         Bundle data = getArguments();
         pokemonDetail = new PokemonDetail();
         managerWS = new ManagerWS(pokemonDetail);
         managerWS.getOnePokemon(data.getInt("id"), this, linearLayoutLoading);
+
+        context = getActivity();
 
 
         return v;
@@ -108,6 +107,40 @@ public class DetailPokemonFragment extends BaseFragment {
         textViewHeight1.setText(pPokemonDetail.getHeight());
         textViewAbility1.setText(pPokemonDetail.getAbility1());
         textViewAbility2.setText(pPokemonDetail.getAbility2());
+
+        buttonEchanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Bundle data = new Bundle();
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder
+                        .setMessage("Etes-vous sûr de vouloir échanger " + pPokemonDetail.getName_pokemon() + " ? ")
+                        .setCancelable(true)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int id) {
+                                data.putInt("id", pPokemonDetail.getId_pokemon());
+                                data.putString("nom", pPokemonDetail.getName_pokemon());
+                                data.putString("url", pPokemonDetail.getUrl_img());
+
+                                final AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(getActivity());
+                                alertDialogBuilder2
+                                        .setMessage("La demande d'échange a bien été effectuée.")
+                                        .setCancelable(true)
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                            }
+                                        });
+                                alertDialogBuilder2.show();
+                                showFragment(EchangeFragment.newInstance(data));
+                            }
+
+                        });
+                alertDialogBuilder.show();
+
+
+            }
+        });
     }
 
 

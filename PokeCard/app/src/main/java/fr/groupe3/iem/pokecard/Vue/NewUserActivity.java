@@ -13,7 +13,6 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
-import fr.groupe3.iem.pokecard.PostRequest;
 import fr.groupe3.iem.pokecard.R;
 
 public class NewUserActivity extends AppCompatActivity {
@@ -88,7 +87,7 @@ public class NewUserActivity extends AppCompatActivity {
                             json.put("login", editTextUser.getText().toString());
                             json.put("email", editTextEmail.getText().toString());
                             json.put("password", editTextPassword.getText().toString());
-                            new PostRequest().execute("createuser", json);
+                            //new PostRequest().execute("createuser", json);
 
                             Intent intent = new Intent().setClass(NewUserActivity.this, MainActivity.class);
                         } catch (Exception e) {

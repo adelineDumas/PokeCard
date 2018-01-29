@@ -1,7 +1,6 @@
 package fr.groupe3.iem.pokecard.Vue;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
-import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.R;
 
 public class PokemonAdapter extends ArrayAdapter<Pokemon> {
@@ -30,7 +28,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listadapter,parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listadapterpokemon,parent, false);
         }
 
         ViewHolder viewHolder  = (ViewHolder) convertView.getTag();
@@ -38,7 +36,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.listadapter, parent, false);
+            convertView = inflater.inflate(R.layout.listadapterpokemon, parent, false);
             viewHolder.textViewPokemon = (TextView) convertView.findViewById(R.id.textViewNomPokemon);
             viewHolder.imageViewPokemon = (ImageView) convertView.findViewById(R.id.imageViewPokemon);
             convertView.setTag(viewHolder);
