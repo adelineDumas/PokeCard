@@ -40,7 +40,10 @@ public interface ServicePokemon {
     Call<List<Echange>> EchangeReq(@Body Echange echange);
 
     @POST("exchangewith")
-    Call<String> EchangeWith(@Body UserEchange userEchange);
+    Call<JSONArray> EchangeWith(@Body UserEchange userEchange);
+
+    @POST("signup")
+    Call<JSONArray> SignUp(@Body User user);
 
 
 

@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.json.JSONArray;
+
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Echange;
@@ -173,8 +175,29 @@ public class ManagerWS {
             @Override
             public void onFailure(Call<List<Echange>>call, Throwable t) {
                 pLoading.setVisibility(View.GONE);
-                AfficheDialogue("Erreur de chargement", callback.getActivity());
                 callback.Refresh(listEchange);
+            }
+        });
+    }
+
+    /***
+     * Permet d'échanger les deux Pokémons
+     * @param context
+     * @param echange
+     * @author Adeline Dumas
+     */
+    public void EchangeWith(final Context context, Echange echange){
+        Call<JSONArray> pokemonCall = AppPokemon.getPokemonService().EchangeWith(new UserEchange(User.getINSTANCE().getLogin(), listEchange.get(0).getId_pokemon(), echange.getLogin_user(), echange.getId_pokemon()));
+        pokemonCall.enqueue(new Callback<JSONArray>() {
+            @Override
+            public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
+                AfficheDialogue("Echange réussi.",context );
+                
+            }
+
+            @Override
+            public void onFailure(Call<JSONArray>call, Throwable t) {
+                AfficheDialogue("L'échange n'a pas fonctionné, veuillez réessayer plus tard.",context);
             }
         });
     }

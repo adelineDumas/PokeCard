@@ -76,12 +76,13 @@ public class EchangeFragment extends BaseFragment {
         linearLayoutLoading = (LinearLayout) v.findViewById(R.id.loading);
 
         listEchange = new ArrayList<>();
+        Bundle data = getArguments();
+        Echange echange = new Echange(User.getINSTANCE().getLogin(), data.getInt("id"),data.getString("nom"),data.getString("url") );
+        listEchange.add(echange);
         adapter = new EchangeAdapter(getActivity(), listEchange);
         managerWS = new ManagerWS(adapter, listEchange);
 
-
-        Bundle data = getArguments();
-        Echange echange = new Echange(User.getINSTANCE().getLogin(), data.getInt("id"),data.getString("nom"),data.getString("url") );
+        listEchange.clear();
         managerWS.EchangeReq(echange,this, linearLayoutLoading );
         return v;
     }

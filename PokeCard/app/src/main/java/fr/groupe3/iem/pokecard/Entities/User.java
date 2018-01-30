@@ -10,6 +10,7 @@ public class User {
 
     private String login ;
     private String password;
+    private String mail;
 
     //endregion
 
@@ -23,6 +24,13 @@ public class User {
         this.login = login;
         this.password = password;
     }
+
+    public User(String login, String password, String mail) {
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+    }
+
     //endregion
 
     private static User INSTANCE = null;
@@ -50,6 +58,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     //endregion

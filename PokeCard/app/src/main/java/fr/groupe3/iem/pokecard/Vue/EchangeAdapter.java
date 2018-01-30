@@ -11,16 +11,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Echange;
-import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Entities.UserEchange;
 import fr.groupe3.iem.pokecard.Modele.AppPokemon;
 import fr.groupe3.iem.pokecard.Modele.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
-import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,9 +32,12 @@ import retrofit2.Response;
 
 public class EchangeAdapter extends ArrayAdapter<Echange>{
 
+    private List<Echange> listEchange = new ArrayList<>();
+
     //region constructeur
     public EchangeAdapter(Context context , List<Echange> objects) {
         super(context,0, objects);
+        listEchange.add(objects.get(0));
     }
 
     //endregion
@@ -68,20 +72,7 @@ public class EchangeAdapter extends ArrayAdapter<Echange>{
         viewHolder.buttonEchanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<String> pokemonCall = AppPokemon.getPokemonService().EchangeWith(new UserEchange(echange.getLogin_user(), User.getINSTANCE().getLogin()));
-                pokemonCall.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        ManagerWS managerWS = new ManagerWS();
-                        managerWS.AfficheDialogue("Echange réussi.",context );
-                    }
-
-                    @Override
-                    public void onFailure(Call<String>call, Throwable t) {
-                        ManagerWS managerWS = new ManagerWS();
-                        managerWS.AfficheDialogue("L'échange n'a pas fonctionné, veuillez réessayer plus tard.",context);
-                    }
-                });
+                new ManagerWS().EchangeWith(context, echange);
             }
         });
 
