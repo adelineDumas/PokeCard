@@ -2,7 +2,9 @@ package fr.groupe3.iem.pokecard.Modele;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -15,6 +17,7 @@ import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Entities.UserEchange;
+import fr.groupe3.iem.pokecard.Vue.ConnexionActivity;
 import fr.groupe3.iem.pokecard.Vue.EchangeAdapter;
 import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
@@ -29,7 +32,7 @@ import retrofit2.Response;
  * Created by iem on 15/11/2017.
  */
 
-public class ManagerWS {
+public class ManagerWS extends AppCompatActivity{
 
     //region variables
 
@@ -38,6 +41,7 @@ public class ManagerWS {
     private List<Echange> listEchange;
     private PokemonAdapter adapterPokemon;
     private EchangeAdapter adapterechange;
+    private EchangeFragment callback;
 
     //endregion
 
@@ -55,6 +59,10 @@ public class ManagerWS {
     public ManagerWS(EchangeAdapter adapter, List<Echange> pList) {
         this.adapterechange = adapter;
         this.listEchange = pList;
+    }
+
+    public ManagerWS(List<Echange> listEchange) {
+        this.listEchange = listEchange;
     }
 
     public ManagerWS(){
@@ -161,6 +169,7 @@ public class ManagerWS {
      * @author : Adeline Dumas
      */
     public void EchangeReq(Echange echange, final EchangeFragment callback, final LinearLayout pLoading){
+        this.callback = callback;
         Call<List<Echange>> pokemonCall = AppPokemon.getPokemonService().EchangeReq(echange);
         pokemonCall.enqueue(new Callback<List<Echange>>() {
             @Override
@@ -186,18 +195,40 @@ public class ManagerWS {
      * @param echange
      * @author Adeline Dumas
      */
-    public void EchangeWith(final Context context, Echange echange){
+    public void EchangeWith(final Context context, final Echange echange){
         Call<JSONArray> pokemonCall = AppPokemon.getPokemonService().EchangeWith(new UserEchange(User.getINSTANCE().getLogin(), listEchange.get(0).getId_pokemon(), echange.getLogin_user(), echange.getId_pokemon()));
         pokemonCall.enqueue(new Callback<JSONArray>() {
             @Override
             public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
                 AfficheDialogue("Echange réussi.",context );
+                listEchange.remove(echange);
                 
             }
 
             @Override
             public void onFailure(Call<JSONArray>call, Throwable t) {
                 AfficheDialogue("L'échange n'a pas fonctionné, veuillez réessayer plus tard.",context);
+            }
+        });
+    }
+
+    /***
+     * Permet de créer un utilisateur
+     * @param pUser
+     * @param context
+     * @author Adeline Dumas
+     */
+    public void Signup(User pUser, final Context context){
+        Call<JSONArray> pokemonCall = AppPokemon.getPokemonService().SignUp(pUser);
+        pokemonCall.enqueue(new Callback<JSONArray>() {
+            @Override
+            public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
+                AfficheDialogue("Utilisateur crée", context);
+            }
+
+            @Override
+            public void onFailure(Call<JSONArray>call, Throwable t) {
+                AfficheDialogue("Erreur dans la création de l'utilisateur, veuillez réessayer plus tard.",context);
             }
         });
     }

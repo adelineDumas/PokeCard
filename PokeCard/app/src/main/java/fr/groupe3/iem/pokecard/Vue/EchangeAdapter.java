@@ -22,6 +22,7 @@ import fr.groupe3.iem.pokecard.Entities.UserEchange;
 import fr.groupe3.iem.pokecard.Modele.AppPokemon;
 import fr.groupe3.iem.pokecard.Modele.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
+import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,7 +73,7 @@ public class EchangeAdapter extends ArrayAdapter<Echange>{
         viewHolder.buttonEchanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ManagerWS().EchangeWith(context, echange);
+                new ManagerWS(listEchange).EchangeWith(context, echange);
             }
         });
 

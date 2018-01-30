@@ -1,5 +1,6 @@
 package fr.groupe3.iem.pokecard.Vue;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
+import fr.groupe3.iem.pokecard.Entities.User;
+import fr.groupe3.iem.pokecard.Modele.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 
 public class NewUserActivity extends AppCompatActivity {
@@ -48,6 +51,7 @@ public class NewUserActivity extends AppCompatActivity {
      * @author Adeline Dumas - 12/12/2017
      */
     private void init(){
+        final Context context = this;
         imageViewPokecard = (ImageView) findViewById(R.id.imageViewPokecard);
 
         textViewUser = (TextView) findViewById(R.id.textViewUser);
@@ -82,17 +86,9 @@ public class NewUserActivity extends AppCompatActivity {
                     // ad - s'il y a un nom d'utilisateur, un mot de passe et un email
                     // ad - s'il existe dans la BD
                     if (!editTextUser.getText().toString().isEmpty() && ! editTextPassword.getText().toString().isEmpty() && ! editTextEmail.getText().toString().isEmpty() ) {
-                        try {
-                            JSONObject json = new JSONObject();
-                            json.put("login", editTextUser.getText().toString());
-                            json.put("email", editTextEmail.getText().toString());
-                            json.put("password", editTextPassword.getText().toString());
-                            //new PostRequest().execute("createuser", json);
-
-                            Intent intent = new Intent().setClass(NewUserActivity.this, MainActivity.class);
-                        } catch (Exception e) {
-
-                        }
+                        new ManagerWS().Signup(new User(editTextUser.getText().toString(), editTextPassword.getText().toString(), editTextEmail.getText().toString()), context);
+                        Intent intent = new Intent().setClass(NewUserActivity.this, ConnexionActivity.class);
+                        startActivity(intent);
                     }
 
                 } else {
