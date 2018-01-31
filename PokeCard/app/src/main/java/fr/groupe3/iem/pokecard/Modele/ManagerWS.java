@@ -41,7 +41,6 @@ public class ManagerWS extends AppCompatActivity{
     private List<Echange> listEchange;
     private PokemonAdapter adapterPokemon;
     private EchangeAdapter adapterechange;
-    private EchangeFragment callback;
 
     //endregion
 
@@ -169,7 +168,6 @@ public class ManagerWS extends AppCompatActivity{
      * @author : Adeline Dumas
      */
     public void EchangeReq(Echange echange, final EchangeFragment callback, final LinearLayout pLoading){
-        this.callback = callback;
         Call<List<Echange>> pokemonCall = AppPokemon.getPokemonService().EchangeReq(echange);
         pokemonCall.enqueue(new Callback<List<Echange>>() {
             @Override
@@ -195,13 +193,15 @@ public class ManagerWS extends AppCompatActivity{
      * @param echange
      * @author Adeline Dumas
      */
-    public void EchangeWith(final Context context, final Echange echange){
+    public void EchangeWith(final Context context, final Echange echange, final EchangeFragment callback){
         Call<JSONArray> pokemonCall = AppPokemon.getPokemonService().EchangeWith(new UserEchange(User.getINSTANCE().getLogin(), listEchange.get(0).getId_pokemon(), echange.getLogin_user(), echange.getId_pokemon()));
         pokemonCall.enqueue(new Callback<JSONArray>() {
             @Override
             public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
                 AfficheDialogue("Echange réussi.",context );
                 listEchange.remove(echange);
+                callback.Refresh(listEchange);
+
                 
             }
 
@@ -233,8 +233,36 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
+    public void getBooster(final ListPokemonUserFragment callback){
+        Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().GetBooster(User.getINSTANCE());
+        pokemonCall.enqueue(new Callback<List<Pokemon>>() {
+            @Override
+            public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
+                if (response.isSuccessful()) {
+                    listPokemon = response.body();
+                    adapterPokemon.notifyDataSetChanged();
+                    callback.Refresh(listPokemon);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Pokemon>> call, Throwable t) {
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+
+            }
+        });
+    }
+
+
     //endregion
 
+
+    /***
+     * Affiche l'Alerte Dialogue
+     * @param pMessage
+     * @param context
+     * @author Adeline Dumas
+     */
     public void AfficheDialogue(String pMessage, Context context){
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder

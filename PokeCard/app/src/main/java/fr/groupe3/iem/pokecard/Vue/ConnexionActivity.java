@@ -163,8 +163,7 @@ public class ConnexionActivity extends AppCompatActivity {
         buttonConnexionFB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
-                startActivity(intent);
+
             }
         });
 

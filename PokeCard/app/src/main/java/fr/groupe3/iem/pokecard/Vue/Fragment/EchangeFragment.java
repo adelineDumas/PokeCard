@@ -79,7 +79,7 @@ public class EchangeFragment extends BaseFragment {
         Bundle data = getArguments();
         Echange echange = new Echange(User.getINSTANCE().getLogin(), data.getInt("id"),data.getString("nom"),data.getString("url") );
         listEchange.add(echange);
-        adapter = new EchangeAdapter(getActivity(), listEchange);
+        adapter = new EchangeAdapter(getActivity(), listEchange, this);
         managerWS = new ManagerWS(adapter, listEchange);
 
         listEchange.clear();
@@ -91,12 +91,15 @@ public class EchangeFragment extends BaseFragment {
 
     public void Refresh(final List<Echange> pListEchange){
         if (pListEchange.size()>= 1) {
-            EchangeAdapter adapter = new EchangeAdapter(getActivity(), pListEchange);
+            EchangeAdapter adapter = new EchangeAdapter(getActivity(), pListEchange, this);
             listViewEchange = (ListView) v.findViewById(R.id.ListViewEchange);
             listViewEchange.setAdapter(adapter);
         }
         else if (pListEchange.size() == 0 ){
             textViewEchange.setText("Il n'y a pas d'échange proposé par d'autres utilisateurs.");
+            EchangeAdapter adapter = new EchangeAdapter(getActivity(), pListEchange, this);
+            listViewEchange = (ListView) v.findViewById(R.id.ListViewEchange);
+            listViewEchange.setAdapter(adapter);
         }
     }
 

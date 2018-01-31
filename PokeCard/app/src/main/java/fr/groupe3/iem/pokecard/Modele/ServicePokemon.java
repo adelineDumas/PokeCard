@@ -45,6 +45,9 @@ public interface ServicePokemon {
     @POST("signup")
     Call<JSONArray> SignUp(@Body User user);
 
+    @POST("getbooster")
+    Call<List<Pokemon>> GetBooster(@Body User user);
+
 
 
 

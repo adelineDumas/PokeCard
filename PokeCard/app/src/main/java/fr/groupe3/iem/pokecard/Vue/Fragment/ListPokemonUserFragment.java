@@ -1,6 +1,9 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +63,8 @@ public class ListPokemonUserFragment extends BaseFragment {
 
         textViewTitre = v.findViewById(R.id.textViewTitre);
         listViewPokemon = v.findViewById(R.id.listViewPokemon);
+
+        //ad - initialisation du gif random
         imageViewloading = (ImageView) v.findViewById(R.id.imageViewLoading);
         randomGifGenerator = new RandomGifGenerator();
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageViewloading);
@@ -72,13 +77,17 @@ public class ListPokemonUserFragment extends BaseFragment {
 
 
         managerWS.getCollectionUser(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()), this, linearLayoutLoading);
+
+
         return v;
     }
 
     //endregion
 
     public void Refresh(final List<Pokemon> pListPokemon){
+        GestionBooster(pListPokemon);
         if (pListPokemon.size() >= 1 ) {
+            textViewTitre.setText("Ma Collection");
             PokemonAdapter adapter = new PokemonAdapter(getActivity(), pListPokemon);
             listViewPokemon = (ListView) v.findViewById(R.id.listViewPokemon);
             listViewPokemon.setAdapter(adapter);
@@ -97,7 +106,39 @@ public class ListPokemonUserFragment extends BaseFragment {
         }
     }
 
+    public void GestionBooster(List<Pokemon> pListPokemon){
+        if (pListPokemon.size() == 0 ){
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
+            snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this));
+            snackbar.show();
+        }
+        if (User.getINSTANCE().getNbPoints() > 10){
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
+            snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this));
+            snackbar.show();
+        }
+    }
+
     //endregion
 
+    private static class ListenerOpen implements View.OnClickListener{
+
+        private ManagerWS managerWS;
+        private ListPokemonUserFragment context;
+
+        public ListenerOpen(ManagerWS pManagerWS, ListPokemonUserFragment fragment) {
+            managerWS = pManagerWS;
+            context = fragment;
+        }
+
+        @Override
+        public void onClick(View view) {
+            managerWS.getBooster(context);
+        }
+    }
+
 }
+
+
+
 

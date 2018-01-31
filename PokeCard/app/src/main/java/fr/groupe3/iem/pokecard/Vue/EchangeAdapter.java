@@ -34,11 +34,13 @@ import retrofit2.Response;
 public class EchangeAdapter extends ArrayAdapter<Echange>{
 
     private List<Echange> listEchange = new ArrayList<>();
+    private EchangeFragment echangeFragment;
 
     //region constructeur
-    public EchangeAdapter(Context context , List<Echange> objects) {
+    public EchangeAdapter(Context context , List<Echange> objects, EchangeFragment pFramgent) {
         super(context,0, objects);
-        listEchange.add(objects.get(0));
+        listEchange = objects;
+        echangeFragment = pFramgent;
     }
 
     //endregion
@@ -73,7 +75,8 @@ public class EchangeAdapter extends ArrayAdapter<Echange>{
         viewHolder.buttonEchanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ManagerWS(listEchange).EchangeWith(context, echange);
+                new ManagerWS(listEchange).EchangeWith(context, echange, echangeFragment);
+
             }
         });
 
