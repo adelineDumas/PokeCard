@@ -23,8 +23,8 @@ import com.facebook.login.widget.LoginButton;
 
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
 import fr.groupe3.iem.pokecard.Entities.User;
-import fr.groupe3.iem.pokecard.Modele.AppPokemon;
-import fr.groupe3.iem.pokecard.Modele.ManagerWS;
+import fr.groupe3.iem.pokecard.Metier.AppPokemon;
+import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import retrofit2.Call;
 import retrofit2.Callback;

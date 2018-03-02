@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard.Vue;
+package fr.groupe3.iem.pokecard.Vue.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,21 +11,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Echange;
-import fr.groupe3.iem.pokecard.Entities.User;
-import fr.groupe3.iem.pokecard.Entities.UserEchange;
-import fr.groupe3.iem.pokecard.Modele.AppPokemon;
-import fr.groupe3.iem.pokecard.Modele.ManagerWS;
+import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Adel on 25/01/2018.

@@ -1,8 +1,7 @@
-package fr.groupe3.iem.pokecard.Modele;
+package fr.groupe3.iem.pokecard.Metier;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,13 +16,13 @@ import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Entities.UserEchange;
-import fr.groupe3.iem.pokecard.Vue.ConnexionActivity;
-import fr.groupe3.iem.pokecard.Vue.EchangeAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.EchangeAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
 import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
-import fr.groupe3.iem.pokecard.Vue.PokemonAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.PokemonAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,8 +38,10 @@ public class ManagerWS extends AppCompatActivity{
     private PokemonDetail pokemonDetail;
     private List<Pokemon> listPokemon;
     private List<Echange> listEchange;
+    private List<User> listUser;
     private PokemonAdapter adapterPokemon;
     private EchangeAdapter adapterechange;
+    private FriendAdapter adapterFriend;
 
     //endregion
 
@@ -64,6 +65,11 @@ public class ManagerWS extends AppCompatActivity{
         this.listEchange = listEchange;
     }
 
+    public ManagerWS(FriendAdapter adapter, List<User> pList) {
+        this.adapterFriend = adapter;
+        this.listUser = pList;
+    }
+
     public ManagerWS(){
 
     }
@@ -71,6 +77,8 @@ public class ManagerWS extends AppCompatActivity{
     //endregion
 
     //region methodes
+
+    //region route
 
     /***
      * Permet de récupérer tous les Pokemons
@@ -159,7 +167,6 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
-
     /***
      * Permet de récupérer d'ajouter la demande d'échange dans la BD + retourne s'il y a une demande d'achange
      * @param echange
@@ -233,6 +240,11 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
+    /***
+     * Retourne 15 pokemons random
+     * @param callback
+     * @author Adeline Dumas
+     */
     public void getBooster(final ListPokemonUserFragment callback){
         Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().GetBooster(User.getINSTANCE());
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
@@ -253,9 +265,7 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
-
     //endregion
-
 
     /***
      * Affiche l'Alerte Dialogue
@@ -274,6 +284,8 @@ public class ManagerWS extends AppCompatActivity{
                 });
         alertDialogBuilder.show();
     }
+
+    //endregion
 
 
 }

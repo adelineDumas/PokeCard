@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard.Vue;
+package fr.groupe3.iem.pokecard.Vue.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

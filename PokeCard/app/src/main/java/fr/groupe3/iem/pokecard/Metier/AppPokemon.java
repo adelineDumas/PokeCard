@@ -1,11 +1,10 @@
-package fr.groupe3.iem.pokecard.Modele;
+package fr.groupe3.iem.pokecard.Metier;
 
 import android.app.Application;
 
 import java.util.concurrent.TimeUnit;
 
 import fr.groupe3.iem.pokecard.BuildConfig;
-import fr.groupe3.iem.pokecard.Modele.ServicePokemon;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

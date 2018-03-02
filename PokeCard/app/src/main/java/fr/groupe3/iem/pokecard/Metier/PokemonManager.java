@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard.Modele;
+package fr.groupe3.iem.pokecard.Metier;
 
 /**
  * Created by iem on 13/12/2017.

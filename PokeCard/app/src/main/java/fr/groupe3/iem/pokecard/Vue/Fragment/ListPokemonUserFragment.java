@@ -1,7 +1,5 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -22,9 +20,9 @@ import java.util.List;
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
 import fr.groupe3.iem.pokecard.Entities.User;
-import fr.groupe3.iem.pokecard.Modele.ManagerWS;
+import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
-import fr.groupe3.iem.pokecard.Vue.PokemonAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.PokemonAdapter;
 
 
 public class ListPokemonUserFragment extends BaseFragment {

@@ -12,6 +12,7 @@ public class User {
     private String password;
     private String mail;
     private int nbPoints;
+    private String avatar;
 
     //endregion
 
@@ -32,13 +33,6 @@ public class User {
         this.mail = mail;
     }
 
-    public int getNbPoints() {
-        return nbPoints;
-    }
-
-    public void setNbPoints(int nbPoints) {
-        this.nbPoints = nbPoints;
-    }
 
     public User(String login, String password, String mail, int nbPoints) {
         this.login = login;
@@ -77,15 +71,13 @@ public class User {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public int getNbPoints() {
+        return nbPoints;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public String getAvatar() {
+        return avatar;
     }
 
-
-
-    //endregion
+//endregion
 }

@@ -11,11 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
 import fr.groupe3.iem.pokecard.Entities.User;
-import fr.groupe3.iem.pokecard.Modele.ManagerWS;
+import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 
 public class NewUserActivity extends AppCompatActivity {

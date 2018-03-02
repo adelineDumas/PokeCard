@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard.Modele;
+package fr.groupe3.iem.pokecard.Metier;
 
 import org.json.JSONArray;
 
@@ -48,8 +48,8 @@ public interface ServicePokemon {
     @POST("getbooster")
     Call<List<Pokemon>> GetBooster(@Body User user);
 
-
-
+    @GET("searchuser")
+    Call<List<Pokemon>> GetUserSearched(@Body User user);
 
 
 }

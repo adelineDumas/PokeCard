@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
-import fr.groupe3.iem.pokecard.Modele.ManagerWS;
+import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 
 

@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.R;
+import fr.groupe3.iem.pokecard.Vue.Fragment.AddFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
 
 
@@ -94,9 +96,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             getSupportActionBar().setTitle("Mes Pokemons");
         } else if (id == R.id.nav_amis) {
             clearBackstack();
-            //showFragment(AmisFragment.newInstance());
+            showFragment(ListFriendsFragment.newInstance());
             getSupportActionBar().setTitle("Mes amis");
-        } else if (id == R.id.nav_allEchange) {
+        } else if (id == R.id.nav_addFriends) {
+            clearBackstack();
+        showFragment(AddFriendsFragment.newInstance());
+            getSupportActionBar().setTitle("Mes amis");
+        }else if (id == R.id.nav_allEchange) {
             clearBackstack();
             showFragment(EchangeFragment.newInstance());
             getSupportActionBar().setTitle("Echange");

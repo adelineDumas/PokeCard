@@ -18,9 +18,9 @@ import java.util.List;
 import fr.groupe3.iem.pokecard.Entities.Echange;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
 import fr.groupe3.iem.pokecard.Entities.User;
-import fr.groupe3.iem.pokecard.Modele.ManagerWS;
+import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
-import fr.groupe3.iem.pokecard.Vue.EchangeAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.EchangeAdapter;
 
 /**
  * Created by Adel on 25/01/2018.
