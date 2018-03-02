@@ -12,15 +12,18 @@ import org.json.JSONArray;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Echange;
+import fr.groupe3.iem.pokecard.Entities.Friend;
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Entities.UserEchange;
 import fr.groupe3.iem.pokecard.Vue.Adapter.EchangeAdapter;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
+import fr.groupe3.iem.pokecard.Vue.Fragment.AddFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.ListFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
 import fr.groupe3.iem.pokecard.Vue.Adapter.PokemonAdapter;
 import retrofit2.Call;
@@ -38,7 +41,7 @@ public class ManagerWS extends AppCompatActivity{
     private PokemonDetail pokemonDetail;
     private List<Pokemon> listPokemon;
     private List<Echange> listEchange;
-    private List<User> listUser;
+    private List<Friend> listFriends;
     private PokemonAdapter adapterPokemon;
     private EchangeAdapter adapterechange;
     private FriendAdapter adapterFriend;
@@ -65,9 +68,9 @@ public class ManagerWS extends AppCompatActivity{
         this.listEchange = listEchange;
     }
 
-    public ManagerWS(FriendAdapter adapter, List<User> pList) {
+    public ManagerWS(FriendAdapter adapter, List<Friend> pList) {
         this.adapterFriend = adapter;
-        this.listUser = pList;
+        this.listFriends = pList;
     }
 
     public ManagerWS(){
@@ -261,6 +264,81 @@ public class ManagerWS extends AppCompatActivity{
             public void onFailure(Call<List<Pokemon>> call, Throwable t) {
                 AfficheDialogue("Erreur de chargement", callback.getActivity());
 
+            }
+        });
+    }
+
+    /***
+     * Retourne les utilisateurs ayant dans leur nom le texte rentré par l'utilisateur dans la searchView
+     * @param pTextSearchView
+     * @param callback
+     * @param pLoading
+     * @author Adeline Dumas
+     */
+    public void GetListUserSearched(String pTextSearchView, final AddFriendsFragment callback, final LinearLayout pLoading){
+        Call<List<Friend>> userCall = AppPokemon.getPokemonService().GetListUserSearched(pTextSearchView);
+        userCall.enqueue(new Callback<List<Friend>>() {
+            @Override
+            public void onResponse(Call<List<Friend>> call, Response<List<Friend>> response) {
+                pLoading.setVisibility(View.GONE);
+                listFriends = response.body();
+                callback.Refresh(listFriends);
+            }
+
+            @Override
+            public void onFailure(Call<List<Friend>> call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+                callback.Refresh(listFriends);
+            }
+        });
+    }
+
+    public void AddFriend(){
+
+    }
+
+    /***
+     * Retoune un certain nombre d'utilisateurs aléatoire
+     * @param callback
+     * @param pLoading
+     * @author Adeline Dumas
+     */
+    public void GetListUserRandom(final AddFriendsFragment callback, final LinearLayout pLoading){
+        Call<List<Friend>> userCall = AppPokemon.getPokemonService().GetListUserRandom();
+        userCall.enqueue(new Callback<List<Friend>>() {
+            @Override
+            public void onResponse(Call<List<Friend>> call, Response<List<Friend>> response) {
+                pLoading.setVisibility(View.GONE);
+                listFriends = response.body();
+                callback.Refresh(listFriends);
+            }
+
+            @Override
+            public void onFailure(Call<List<Friend>> call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+                callback.Refresh(listFriends);
+            }
+        });
+    }
+
+    public void GetListFriends(User pUser, final ListFriendsFragment callback, final LinearLayout pLoading){
+        Call<List<Friend>> userCall = AppPokemon.getPokemonService().GetListFriends(pUser);
+        userCall.enqueue(new Callback<List<Friend>>() {
+            @Override
+            public void onResponse(Call<List<Friend>> call, Response<List<Friend>> response) {
+                pLoading.setVisibility(View.GONE);
+                listFriends.addAll(response.body());
+                //adapterPokemon.notifyDataSetChanged();
+                callback.Refresh(listFriends);
+            }
+
+            @Override
+            public void onFailure(Call<List<Friend>> call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+                callback.Refresh(listFriends);
             }
         });
     }

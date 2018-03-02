@@ -48,7 +48,8 @@
             android:text=""
             android:textAlignment="center"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="casual"/>
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +65,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="75dp"
             android:text="Type : "
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="casual"/>
 
         <TextView
             android:id="@+id/textViewType1"
@@ -80,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="140dp"
+        android:fontFamily="casual"
         android:text="" />
 
     <LinearLayout
@@ -95,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="75dp"
             android:text="Abilités : "
+            android:fontFamily="casual"
             android:textStyle="bold" />
 
         <TextView
@@ -110,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="140dp"
+        android:fontFamily="casual"
         android:text="" />
 
     <LinearLayout
@@ -125,6 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="75dp"
             android:text="Taille : "
+            android:fontFamily="casual"
             android:textStyle="bold" />
 
         <TextView
@@ -133,7 +139,8 @@
             android:layout_height="wrap_content"
             android:text=""
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="75dp"/>
+            android:layout_marginRight="75dp"
+            android:fontFamily="casual"/>
 
     </LinearLayout>
 
@@ -150,23 +157,28 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="75dp"
             android:text="Poids : "
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="casual"/>
 
         <TextView
             android:id="@+id/textViewWeight1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="15dp"
+            android:fontFamily="casual"/>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonEchanger"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Echanger"
+        android:layout_gravity="center"
+        android:background="@drawable/drawable"
+        android:fontFamily="casual"
+        android:text="@string/echange"
         android:textAlignment="center"
         android:textStyle="italic" />
 </LinearLayout>

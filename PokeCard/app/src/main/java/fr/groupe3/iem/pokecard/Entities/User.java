@@ -12,7 +12,6 @@ public class User {
     private String password;
     private String mail;
     private int nbPoints;
-    private String avatar;
 
     //endregion
 
@@ -73,10 +72,6 @@ public class User {
 
     public int getNbPoints() {
         return nbPoints;
-    }
-
-    public String getAvatar() {
-        return avatar;
     }
 
 //endregion

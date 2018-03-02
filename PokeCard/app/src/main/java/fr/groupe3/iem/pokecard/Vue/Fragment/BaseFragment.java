@@ -1,10 +1,9 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import fr.groupe3.iem.pokecard.Vue.MainActivity;
+import fr.groupe3.iem.pokecard.Vue.Activity.MainActivity;
 
 /**
  * Created by iem on 13/12/2017.

@@ -23,8 +23,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.groupe3.iem.pokecard.Entities.Friend;
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
+import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
@@ -46,7 +48,7 @@ public class AddFriendsFragment extends BaseFragment {
     private ImageView imageViewloading;
     private RandomGifGenerator randomGifGenerator;
 
-    private List ListSearchFriends;
+    private List<Friend> ListSearchFriends;
 
     private FriendAdapter adapter;
     private ManagerWS managerWS;
@@ -67,6 +69,7 @@ public class AddFriendsFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle savedInstanceState) {
+        final AddFriendsFragment self = this;
         v = pInflater.inflate(R.layout.fragment_add_friends, pContainer, false);
 
         textviewSearch = v.findViewById(R.id.textViewRechercheAmi);
@@ -84,15 +87,21 @@ public class AddFriendsFragment extends BaseFragment {
         adapter = new FriendAdapter(getActivity(), ListSearchFriends);
         managerWS = new ManagerWS(adapter, ListSearchFriends);
 
-        //managerWS.(this, linearLayoutLoading);
+        managerWS.GetListUserRandom(this, linearLayoutLoading);
 
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managerWS.GetListUserSearched(searchView.getQuery().toString(), self ,linearLayoutLoading);
+            }
+        });
 
         return v;
 
     }
 
-    public void Refresh(final List<Pokemon> pListPokemon){
-        PokemonAdapter adapter  = new PokemonAdapter(getActivity(), pListPokemon);
+    public void Refresh(final List<Friend> pListFriend){
+        FriendAdapter adapter  = new FriendAdapter(getActivity(), pListFriend);
         listViewSearchFriends = (ListView) v.findViewById(R.id.listViewSearchFriend);
         listViewSearchFriends.setAdapter(adapter);
 

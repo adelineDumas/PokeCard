@@ -1,4 +1,4 @@
-package fr.groupe3.iem.pokecard.Vue;
+package fr.groupe3.iem.pokecard.Vue.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;

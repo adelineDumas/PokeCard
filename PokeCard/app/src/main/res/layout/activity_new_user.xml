@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.groupe3.iem.pokecard.Vue.NewUserActivity"
+    tools:context="fr.groupe3.iem.pokecard.Vue.Activity.NewUserActivity"
     android:background="#ffffff">
 
     <LinearLayout

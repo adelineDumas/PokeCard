@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Echange;
+import fr.groupe3.iem.pokecard.Entities.Friend;
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.PokemonDetail;
 import fr.groupe3.iem.pokecard.Entities.User;
@@ -48,8 +49,17 @@ public interface ServicePokemon {
     @POST("getbooster")
     Call<List<Pokemon>> GetBooster(@Body User user);
 
-    @GET("searchuser")
-    Call<List<Pokemon>> GetUserSearched(@Body User user);
+    @GET("searchuser/{login}")
+    Call<List<Friend>> GetListUserSearched(@Path ("login") String pTextSearchView );
+
+    @POST("addfriend")
+    Call<User> AddFriend(@Body User user);
+
+    @GET("randomuser")
+    Call<List<Friend>> GetListUserRandom();
+
+    @POST("friendslist")
+    Call<List<Friend>> GetListFriends(@Body User user);
 
 
 }

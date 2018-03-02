@@ -13,17 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
-        <activity android:name=".Vue.SplashScreen">
+        <activity android:name=".Vue.Activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Vue.MainActivity" />
-        <activity android:name=".Vue.ConnexionActivity" />
-        <activity android:name=".Vue.NewUserActivity" />
-        <activity android:name=".Vue.BaseActivity" />
+        <activity android:name=".Vue.Activity.MainActivity" />
+        <activity android:name=".Vue.Activity.ConnexionActivity" />
+        <activity android:name=".Vue.Activity.NewUserActivity" />
+        <activity android:name=".Vue.Activity.BaseActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

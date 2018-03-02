@@ -9,10 +9,18 @@
 
     <TextView
         android:id="@+id/textViewNomFriend"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="100dp"
-        android:text=""
-        android:gravity="center_vertical"/>
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1"
+        android:fontFamily="casual"
+        android:gravity="center_vertical"
+        android:text="kyuku"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageViewFriend"
@@ -22,6 +30,16 @@
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="casual"
+        android:text="@string/add"
+        android:textAlignment="center" />
 
 
 </LinearLayout>

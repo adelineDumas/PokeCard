@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.groupe3.iem.pokecard.Vue.SplashScreen">
+    tools:context="fr.groupe3.iem.pokecard.Vue.Activity.SplashScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="180dp"
             android:text="@string/author"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:fontFamily="casual"/>
     </LinearLayout>
 
 </android.support.v7.widget.LinearLayoutCompat>

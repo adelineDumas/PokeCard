@@ -31,7 +31,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:fontFamily="casual"/>
 
     <ListView
         android:id="@+id/listViewFriend"

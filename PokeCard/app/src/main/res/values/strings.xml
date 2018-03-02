@@ -26,4 +26,6 @@
     <string name="searchFriend">Rechercher un ami</string>
     <string name="search">Rechercher</string>
     <string name="friend">Mes amis</string>
+    <string name="add">Ajouter</string>
+    <string name="echange">Echanger</string>
 </resources>

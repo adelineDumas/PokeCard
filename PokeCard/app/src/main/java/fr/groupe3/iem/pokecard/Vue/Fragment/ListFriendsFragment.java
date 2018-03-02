@@ -15,8 +15,10 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.groupe3.iem.pokecard.Entities.Friend;
 import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
+import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
@@ -39,7 +41,7 @@ public class ListFriendsFragment extends BaseFragment{
     private ImageView imageViewloading;
     private RandomGifGenerator randomGifGenerator;
 
-    private List ListFriends;
+    private List<Friend> ListFriends;
 
     private FriendAdapter adapter;
     private ManagerWS managerWS;
@@ -60,7 +62,7 @@ public class ListFriendsFragment extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle savedInstanceState) {
-        v = pInflater.inflate(R.layout.fragment_add_friends, pContainer, false);
+        v = pInflater.inflate(R.layout.fragment_list_friends, pContainer, false);
 
         textviewMesAmis = v.findViewById(R.id.textViewMesAmis);
         listViewFriends = v.findViewById(R.id.listViewFriend);
@@ -75,15 +77,15 @@ public class ListFriendsFragment extends BaseFragment{
         adapter = new FriendAdapter(getActivity(), ListFriends);
         managerWS = new ManagerWS(adapter, ListFriends);
 
-        //managerWS.(this, linearLayoutLoading);
+        managerWS.GetListFriends(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()), this, linearLayoutLoading);
 
 
         return v;
 
     }
 
-    public void Refresh(final List<Pokemon> pListPokemon){
-        PokemonAdapter adapter  = new PokemonAdapter(getActivity(), pListPokemon);
+    public void Refresh(final List<Friend> pListFriend){
+        FriendAdapter adapter  = new FriendAdapter(getActivity(), pListFriend);
         listViewFriends = (ListView) v.findViewById(R.id.listViewFriend);
         listViewFriends.setAdapter(adapter);
 

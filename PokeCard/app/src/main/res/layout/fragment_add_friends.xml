@@ -31,7 +31,8 @@
         android:text="@string/searchFriend"
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:fontFamily="casual"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,9 +47,12 @@
 
         <Button
             android:id="@+id/buttonOk"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search" />
+            android:fontFamily="casual"
+            android:text="@string/search"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <ListView

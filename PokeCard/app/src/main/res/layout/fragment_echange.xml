@@ -33,7 +33,8 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:fontFamily="casual"/>
 
     <ListView
         android:id="@+id/ListViewEchange"

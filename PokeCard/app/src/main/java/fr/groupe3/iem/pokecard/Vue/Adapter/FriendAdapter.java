@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import fr.groupe3.iem.pokecard.Entities.Pokemon;
+import fr.groupe3.iem.pokecard.Entities.Friend;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.R;
 
@@ -20,10 +20,10 @@ import fr.groupe3.iem.pokecard.R;
  * Created by iem on 02/03/2018.
  */
 
-public class FriendAdapter extends ArrayAdapter<User> {
+public class FriendAdapter extends ArrayAdapter<Friend> {
 
     //region constructeur
-    public FriendAdapter(Context context , List<User> objects) {
+    public FriendAdapter(Context context , List<Friend> objects) {
         super(context,0, objects);
     }
 
@@ -47,11 +47,11 @@ public class FriendAdapter extends ArrayAdapter<User> {
             convertView.setTag(viewHolder);
         }
 
-        User user = getItem(position);
-        viewHolder.textViewNomFriend.setText(user.getLogin());
+        Friend friend = getItem(position);
+        viewHolder.textViewNomFriend.setText(friend.getLogin());
 
         // ad - Utilisation de Picasso pour afficher les images depuis une URL
-        Picasso.with(getContext()).load(user.getAvatar()).resize(200, 200).into(viewHolder.imageViewFriend);
+        Picasso.with(getContext()).load(friend.getAvatar()).resize(200, 200).into(viewHolder.imageViewFriend);
 
         return convertView;
     }
