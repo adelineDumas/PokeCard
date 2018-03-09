@@ -110,7 +110,7 @@ public class ListPokemonUserFragment extends BaseFragment {
             snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this));
             snackbar.show();
         }
-        if (User.getINSTANCE().getNbPoints() > 10){
+        if (User.getINSTANCE().getPoints() > 10){
             Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
             snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this));
             snackbar.show();

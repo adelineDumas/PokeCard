@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Friend;
-import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.R;
 
 /**

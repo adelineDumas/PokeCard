@@ -7,13 +7,12 @@ package fr.groupe3.iem.pokecard.Entities;
 public class Friend {
 
     private String login ;
-    private String mail;
+    private String login_user;
     private String avatar;
 
-    public Friend(String login, String mail, String avatar) {
+    public Friend(String login, String login_user) {
         this.login = login;
-        this.mail = mail;
-        this.avatar = avatar;
+        this.login_user = login_user;
     }
 
     public String getLogin() {
@@ -24,19 +23,19 @@ public class Friend {
         this.login = login;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public String getAvatar() {
         return avatar;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getLogin_user() {
+        return login_user;
+    }
+
+    public void setLogin_user(String login_friend) {
+        this.login_user = login_friend;
     }
 }

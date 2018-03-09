@@ -11,7 +11,8 @@ public class User {
     private String login ;
     private String password;
     private String mail;
-    private int nbPoints;
+    private int points;
+    private String avatar;
 
     //endregion
 
@@ -38,7 +39,7 @@ public class User {
         this.password = password;
         this.mail = mail;
 
-        this.nbPoints = nbPoints;
+        this.points = nbPoints;
     }
 
     //endregion
@@ -53,6 +54,27 @@ public class User {
     }
 
     //region getters setters
+
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getLogin() {
         return login;
@@ -70,8 +92,8 @@ public class User {
         this.password = password;
     }
 
-    public int getNbPoints() {
-        return nbPoints;
+    public int getPoints() {
+        return points;
     }
 
 //endregion

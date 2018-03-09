@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -16,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Friend;
-import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
-import fr.groupe3.iem.pokecard.Vue.Adapter.PokemonAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.SearchAddFriendAdapter;
 
 /**
  * Created by iem on 02/03/2018.
@@ -79,6 +79,13 @@ public class ListFriendsFragment extends BaseFragment{
 
         managerWS.GetListFriends(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()), this, linearLayoutLoading);
 
+        listViewFriends.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //managerWS.DeleteFriend()
+                return true;
+            }
+        });
 
         return v;
 

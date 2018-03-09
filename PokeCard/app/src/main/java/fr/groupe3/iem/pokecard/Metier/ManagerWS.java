@@ -19,6 +19,7 @@ import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Entities.UserEchange;
 import fr.groupe3.iem.pokecard.Vue.Adapter.EchangeAdapter;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.SearchAddFriendAdapter;
 import fr.groupe3.iem.pokecard.Vue.Fragment.AddFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
@@ -44,7 +45,8 @@ public class ManagerWS extends AppCompatActivity{
     private List<Friend> listFriends;
     private PokemonAdapter adapterPokemon;
     private EchangeAdapter adapterechange;
-    private FriendAdapter adapterFriend;
+    private SearchAddFriendAdapter searchAddFriendAdapter;
+    private  FriendAdapter adapterFriend;
 
     //endregion
 
@@ -64,8 +66,14 @@ public class ManagerWS extends AppCompatActivity{
         this.listEchange = pList;
     }
 
-    public ManagerWS(List<Echange> listEchange) {
-        this.listEchange = listEchange;
+    public ManagerWS(List pList) {
+        this.listEchange = pList;
+        this.listFriends = pList;
+    }
+
+    public ManagerWS(SearchAddFriendAdapter adapter, List<Friend> pList) {
+        this.searchAddFriendAdapter = adapter;
+        this.listFriends = pList;
     }
 
     public ManagerWS(FriendAdapter adapter, List<Friend> pList) {
@@ -211,8 +219,6 @@ public class ManagerWS extends AppCompatActivity{
                 AfficheDialogue("Echange réussi.",context );
                 listEchange.remove(echange);
                 callback.Refresh(listEchange);
-
-                
             }
 
             @Override
@@ -294,10 +300,6 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
-    public void AddFriend(){
-
-    }
-
     /***
      * Retoune un certain nombre d'utilisateurs aléatoire
      * @param callback
@@ -323,6 +325,13 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
+    /***
+     * Retourne la liste des amis de l'utilisateur
+     * @author : Adeline Dumas - 09/03/2018 - Création
+     * @param pUser
+     * @param callback
+     * @param pLoading
+     */
     public void GetListFriends(User pUser, final ListFriendsFragment callback, final LinearLayout pLoading){
         Call<List<Friend>> userCall = AppPokemon.getPokemonService().GetListFriends(pUser);
         userCall.enqueue(new Callback<List<Friend>>() {
@@ -338,6 +347,30 @@ public class ManagerWS extends AppCompatActivity{
             public void onFailure(Call<List<Friend>> call, Throwable t) {
                 pLoading.setVisibility(View.GONE);
                 AfficheDialogue("Erreur de chargement", callback.getActivity());
+                callback.Refresh(listFriends);
+            }
+        });
+    }
+
+    /***
+     * Ajoute un ami
+     * @author : Adeline Dumas - 09/03/2018 - Création
+     * @param pFriendaAjouter
+     * @param pContext
+     * @param callback
+     */
+    public void AddFriend(final Friend pFriendaAjouter, final Context pContext, final AddFriendsFragment callback){
+        Call<Friend> userCall = AppPokemon.getPokemonService().AddFriend(pFriendaAjouter);
+        userCall.enqueue(new Callback<Friend>() {
+            @Override
+            public void onResponse(Call<Friend> call, Response<Friend> response) {
+                AfficheDialogue("Cet utilisateur a bien été ajouté dans vos amis.", pContext);
+                callback.Refresh(listFriends);
+            }
+
+            @Override
+            public void onFailure(Call<Friend> call, Throwable t) {
+                AfficheDialogue("Erreur de chargement", pContext);
                 callback.Refresh(listFriends);
             }
         });

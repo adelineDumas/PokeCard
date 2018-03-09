@@ -126,7 +126,7 @@ public class ConnexionActivity extends AppCompatActivity {
                     if (!editTextUser.getText().toString().isEmpty() && !editTextPasword.getText().toString().isEmpty()) {
                         User.getINSTANCE().setLogin(editTextUser.getText().toString());
                         User.getINSTANCE().setPassword(editTextPasword.getText().toString());
-                        final Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
+                           final Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
                         Call<User> user = AppPokemon.getPokemonService().verifyLogin(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()));
                         user.enqueue(new Callback<User>() {
                             @Override
@@ -136,6 +136,9 @@ public class ConnexionActivity extends AppCompatActivity {
                                         Toast.makeText(ConnexionActivity.this, "Le mot de passe est incorrect", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
+                                        User.getINSTANCE().setMail(response.body().getMail());
+                                        User.getINSTANCE().setPoints(response.body().getPoints());
+                                        User.getINSTANCE().setAvatar(response.body().getAvatar());
                                         startActivity(intent);
                                     }
                                 }
@@ -150,9 +153,9 @@ public class ConnexionActivity extends AppCompatActivity {
                         });
                     }
                 } else {
-                        Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
                 }
+            }
         });
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -189,4 +192,3 @@ public class ConnexionActivity extends AppCompatActivity {
     //endregion
 
 }
-

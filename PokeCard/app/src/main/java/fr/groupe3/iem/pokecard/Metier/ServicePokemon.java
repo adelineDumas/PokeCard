@@ -53,7 +53,7 @@ public interface ServicePokemon {
     Call<List<Friend>> GetListUserSearched(@Path ("login") String pTextSearchView );
 
     @POST("addfriend")
-    Call<User> AddFriend(@Body User user);
+    Call<Friend> AddFriend(@Body Friend friend);
 
     @GET("randomuser")
     Call<List<Friend>> GetListUserRandom();

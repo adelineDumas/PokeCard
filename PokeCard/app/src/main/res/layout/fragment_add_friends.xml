@@ -5,7 +5,7 @@
     tools:context="fr.groupe3.iem.pokecard.Vue.Fragment.AddFriendsFragment"
     android:orientation="vertical">
 
-    <LinearLayout
+   <LinearLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

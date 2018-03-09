@@ -1,13 +1,10 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,19 +15,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Friend;
-import fr.groupe3.iem.pokecard.Entities.Pokemon;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
-import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
-import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
-import fr.groupe3.iem.pokecard.Vue.Adapter.PokemonAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.SearchAddFriendAdapter;
 
 
 public class AddFriendsFragment extends BaseFragment {
@@ -50,7 +42,7 @@ public class AddFriendsFragment extends BaseFragment {
 
     private List<Friend> ListSearchFriends;
 
-    private FriendAdapter adapter;
+    private SearchAddFriendAdapter adapter;
     private ManagerWS managerWS;
 
 
@@ -84,7 +76,7 @@ public class AddFriendsFragment extends BaseFragment {
         linearLayoutLoading = (LinearLayout) v.findViewById(R.id.loading);
 
         ListSearchFriends = new ArrayList<>();
-        adapter = new FriendAdapter(getActivity(), ListSearchFriends);
+        adapter = new SearchAddFriendAdapter(getActivity(), ListSearchFriends, this);
         managerWS = new ManagerWS(adapter, ListSearchFriends);
 
         managerWS.GetListUserRandom(this, linearLayoutLoading);
@@ -92,7 +84,22 @@ public class AddFriendsFragment extends BaseFragment {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                managerWS.GetListUserSearched(searchView.getQuery().toString(), self ,linearLayoutLoading);
+                if (searchView.getQuery().toString().isEmpty()) {
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Veuillez rentrer un nom d'utilisateur.", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+                else {
+                    managerWS.GetListUserSearched(searchView.getQuery().toString(), self, linearLayoutLoading); 
+                }
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchView.setQuery("", true);
+                managerWS.GetListUserRandom(self, linearLayoutLoading);
+                return true;
             }
         });
 
@@ -101,7 +108,7 @@ public class AddFriendsFragment extends BaseFragment {
     }
 
     public void Refresh(final List<Friend> pListFriend){
-        FriendAdapter adapter  = new FriendAdapter(getActivity(), pListFriend);
+        SearchAddFriendAdapter adapter  = new SearchAddFriendAdapter(getActivity(), pListFriend, this);
         listViewSearchFriends = (ListView) v.findViewById(R.id.listViewSearchFriend);
         listViewSearchFriends.setAdapter(adapter);
 
