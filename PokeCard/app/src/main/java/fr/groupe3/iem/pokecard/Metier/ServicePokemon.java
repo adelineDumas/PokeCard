@@ -55,11 +55,14 @@ public interface ServicePokemon {
     @POST("addfriend")
     Call<Friend> AddFriend(@Body Friend friend);
 
-    @GET("randomuser")
-    Call<List<Friend>> GetListUserRandom();
+    @GET("randomuser/{login}")
+    Call<List<Friend>> GetListUserRandom(@Path ("login") String pUser);
 
     @POST("friendslist")
     Call<List<Friend>> GetListFriends(@Body User user);
+
+    @POST("deletefriend")
+    Call<JSONArray> DeleteFriend(@Body Friend friend);
 
 
 }

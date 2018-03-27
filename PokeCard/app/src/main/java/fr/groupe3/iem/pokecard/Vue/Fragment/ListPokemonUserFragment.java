@@ -107,12 +107,12 @@ public class ListPokemonUserFragment extends BaseFragment {
     public void GestionBooster(List<Pokemon> pListPokemon){
         if (pListPokemon.size() == 0 ){
             Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
-            snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this));
+            snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this, linearLayoutLoading));
             snackbar.show();
         }
         if (User.getINSTANCE().getPoints() > 10){
             Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
-            snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this));
+            snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this, linearLayoutLoading));
             snackbar.show();
         }
     }
@@ -123,15 +123,18 @@ public class ListPokemonUserFragment extends BaseFragment {
 
         private ManagerWS managerWS;
         private ListPokemonUserFragment context;
+        private LinearLayout linearLayout;
 
-        public ListenerOpen(ManagerWS pManagerWS, ListPokemonUserFragment fragment) {
+        public ListenerOpen(ManagerWS pManagerWS, ListPokemonUserFragment fragment, LinearLayout pLinearLayoutLoading) {
             managerWS = pManagerWS;
             context = fragment;
+            linearLayout = pLinearLayoutLoading;
         }
 
         @Override
         public void onClick(View view) {
-            managerWS.getBooster(context);
+            linearLayout.setVisibility(View.VISIBLE);
+            managerWS.getBooster(context, linearLayout);
         }
     }
 

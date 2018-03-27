@@ -20,6 +20,7 @@ import java.util.List;
 
 import fr.groupe3.iem.pokecard.Entities.Friend;
 import fr.groupe3.iem.pokecard.Entities.RandomGifGenerator;
+import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Adapter.SearchAddFriendAdapter;
@@ -79,7 +80,7 @@ public class AddFriendsFragment extends BaseFragment {
         adapter = new SearchAddFriendAdapter(getActivity(), ListSearchFriends, this);
         managerWS = new ManagerWS(adapter, ListSearchFriends);
 
-        managerWS.GetListUserRandom(this, linearLayoutLoading);
+        managerWS.GetListUserRandom(this, linearLayoutLoading, User.getINSTANCE());
 
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +99,7 @@ public class AddFriendsFragment extends BaseFragment {
             @Override
             public boolean onClose() {
                 searchView.setQuery("", true);
-                managerWS.GetListUserRandom(self, linearLayoutLoading);
+                managerWS.GetListUserRandom(self, linearLayoutLoading, User.getINSTANCE());
                 return true;
             }
         });
@@ -110,7 +111,7 @@ public class AddFriendsFragment extends BaseFragment {
     public void Refresh(final List<Friend> pListFriend){
         SearchAddFriendAdapter adapter  = new SearchAddFriendAdapter(getActivity(), pListFriend, this);
         listViewSearchFriends = (ListView) v.findViewById(R.id.listViewSearchFriend);
-        listViewSearchFriends.setAdapter(adapter);
+         listViewSearchFriends.setAdapter(adapter);
 
     }
 

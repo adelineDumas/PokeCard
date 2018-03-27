@@ -27,10 +27,10 @@ public class AppPokemon  extends Application{
     public void onCreate() {
         super.onCreate();
 
-        /*Retrofit.Builder mBuilder =
+        Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
                         .baseUrl("http://172.20.10.13:3000/")
-                        .addConverterFactory(GsonConverterFactory.create());*/
+                        .addConverterFactory(GsonConverterFactory.create());
 
 
         /*Retrofit.Builder mBuilder =
@@ -42,12 +42,6 @@ public class AppPokemon  extends Application{
                 new Retrofit.Builder()
                         .baseUrl("http://172.31.246.176:3000/")
                         .addConverterFactory(GsonConverterFactory.create());*/
-
-       //EXO PARTNERS
-        Retrofit.Builder mBuilder =
-                new Retrofit.Builder()
-                        .baseUrl("http://10.2.5.133:3000/")
-                        .addConverterFactory(GsonConverterFactory.create());
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 

@@ -254,14 +254,15 @@ public class ManagerWS extends AppCompatActivity{
      * @param callback
      * @author Adeline Dumas
      */
-    public void getBooster(final ListPokemonUserFragment callback){
+    public void getBooster(final ListPokemonUserFragment callback, final LinearLayout pLoading){
         Call<List<Pokemon>> pokemonCall = AppPokemon.getPokemonService().GetBooster(User.getINSTANCE());
         pokemonCall.enqueue(new Callback<List<Pokemon>>() {
             @Override
             public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
                 if (response.isSuccessful()) {
-                    listPokemon = response.body();
+                    listPokemon.addAll(response.body());
                     adapterPokemon.notifyDataSetChanged();
+                    pLoading.setVisibility(View.GONE);
                     callback.Refresh(listPokemon);
                 }
             }
@@ -306,8 +307,8 @@ public class ManagerWS extends AppCompatActivity{
      * @param pLoading
      * @author Adeline Dumas
      */
-    public void GetListUserRandom(final AddFriendsFragment callback, final LinearLayout pLoading){
-        Call<List<Friend>> userCall = AppPokemon.getPokemonService().GetListUserRandom();
+    public void GetListUserRandom(final AddFriendsFragment callback, final LinearLayout pLoading, User pUser){
+        Call<List<Friend>> userCall = AppPokemon.getPokemonService().GetListUserRandom(pUser.getLogin());
         userCall.enqueue(new Callback<List<Friend>>() {
             @Override
             public void onResponse(Call<List<Friend>> call, Response<List<Friend>> response) {
@@ -371,6 +372,27 @@ public class ManagerWS extends AppCompatActivity{
             @Override
             public void onFailure(Call<Friend> call, Throwable t) {
                 AfficheDialogue("Erreur de chargement", pContext);
+                callback.Refresh(listFriends);
+            }
+        });
+    }
+
+    public void DeleteFriend(Friend pFriend, final Friend pFriendaSupprimer , final ListFriendsFragment callback, final LinearLayout pLoading){
+        Call<JSONArray> userCall = AppPokemon.getPokemonService().DeleteFriend(pFriend);
+        userCall.enqueue(new Callback<JSONArray> () {
+            @Override
+            public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Cet utilisateur a bien été supprimé dans vos amis.", callback.getActivity());
+                listFriends.remove(pFriendaSupprimer);
+                callback.Refresh(listFriends);
+            }
+
+            @Override
+            public void onFailure(Call<JSONArray> call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+                listFriends.remove(pFriendaSupprimer);
                 callback.Refresh(listFriends);
             }
         });

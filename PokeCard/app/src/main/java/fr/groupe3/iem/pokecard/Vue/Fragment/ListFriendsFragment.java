@@ -1,6 +1,8 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,6 @@ import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
-import fr.groupe3.iem.pokecard.Vue.Adapter.SearchAddFriendAdapter;
 
 /**
  * Created by iem on 02/03/2018.
@@ -62,6 +63,7 @@ public class ListFriendsFragment extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle savedInstanceState) {
+       final ListFriendsFragment self = this;
         v = pInflater.inflate(R.layout.fragment_list_friends, pContainer, false);
 
         textviewMesAmis = v.findViewById(R.id.textViewMesAmis);
@@ -81,9 +83,20 @@ public class ListFriendsFragment extends BaseFragment{
 
         listViewFriends.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //managerWS.DeleteFriend()
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder
+                        .setMessage("Voulez-vous supprimer cet ami ?")
+                        .setCancelable(true)
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                managerWS.DeleteFriend(new Friend(User.getINSTANCE().getLogin(), ListFriends.get(i).getLogin()),ListFriends.get(i) , self , linearLayoutLoading);
+
+                            }
+                        });
+                alertDialogBuilder.show();
                 return true;
+
             }
         });
 
