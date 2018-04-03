@@ -7,9 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.facebook.internal.Utility;
+
 import org.json.JSONArray;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import fr.groupe3.iem.pokecard.Entities.Echange;
 import fr.groupe3.iem.pokecard.Entities.Friend;
@@ -360,12 +363,13 @@ public class ManagerWS extends AppCompatActivity{
      * @param pContext
      * @param callback
      */
-    public void AddFriend(final Friend pFriendaAjouter, final Context pContext, final AddFriendsFragment callback){
+    public void AddFriend(final Friend pFriendaAjouter, final int pPosition , final Context pContext, final AddFriendsFragment callback){
         Call<Friend> userCall = AppPokemon.getPokemonService().AddFriend(pFriendaAjouter);
         userCall.enqueue(new Callback<Friend>() {
             @Override
             public void onResponse(Call<Friend> call, Response<Friend> response) {
                 AfficheDialogue("Cet utilisateur a bien été ajouté dans vos amis.", pContext);
+                listFriends.remove(pPosition);
                 callback.Refresh(listFriends);
             }
 

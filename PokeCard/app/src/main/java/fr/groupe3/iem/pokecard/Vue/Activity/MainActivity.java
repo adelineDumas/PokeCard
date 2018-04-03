@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             clearBackstack();
-            getFragmentManager().beginTransaction().replace(R.id.contentMain, new SettingsFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.contentMain, SettingsFragment.newInstance()).addToBackStack(null).commit();
             getSupportActionBar().setTitle("Settings");
         }
 

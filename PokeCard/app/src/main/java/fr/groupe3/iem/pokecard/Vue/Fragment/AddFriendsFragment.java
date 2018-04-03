@@ -94,16 +94,6 @@ public class AddFriendsFragment extends BaseFragment {
                 }
             }
         });
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                searchView.setQuery("", true);
-                managerWS.GetListUserRandom(self, linearLayoutLoading, User.getINSTANCE());
-                return true;
-            }
-        });
-
         return v;
 
     }
@@ -111,7 +101,7 @@ public class AddFriendsFragment extends BaseFragment {
     public void Refresh(final List<Friend> pListFriend){
         SearchAddFriendAdapter adapter  = new SearchAddFriendAdapter(getActivity(), pListFriend, this);
         listViewSearchFriends = (ListView) v.findViewById(R.id.listViewSearchFriend);
-         listViewSearchFriends.setAdapter(adapter);
+        listViewSearchFriends.setAdapter(adapter);
 
     }
 

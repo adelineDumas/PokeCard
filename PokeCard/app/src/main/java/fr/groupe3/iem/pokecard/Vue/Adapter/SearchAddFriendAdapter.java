@@ -40,7 +40,7 @@ public class SearchAddFriendAdapter extends ArrayAdapter<Friend> {
 
     //region methodes
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.listadaptersearchfriend,parent, false);
         }
@@ -65,7 +65,7 @@ public class SearchAddFriendAdapter extends ArrayAdapter<Friend> {
         viewHolder.buttonAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ManagerWS(listSearchFriends).AddFriend(new Friend(friend.getLogin(), User.getINSTANCE().getLogin()),context,addFriendsFragment);
+                new ManagerWS(listSearchFriends).AddFriend(new Friend(friend.getLogin(), User.getINSTANCE().getLogin()), position,context,addFriendsFragment);
             }
         });
 

@@ -27,16 +27,16 @@ public class AppPokemon  extends Application{
     public void onCreate() {
         super.onCreate();
 
-        Retrofit.Builder mBuilder =
-                new Retrofit.Builder()
-                        .baseUrl("http://172.20.10.13:3000/")
-                        .addConverterFactory(GsonConverterFactory.create());
-
-
         /*Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.14:3000/")
+                        .baseUrl("http://172.20.10.13:3000/")
                         .addConverterFactory(GsonConverterFactory.create());*/
+
+
+        Retrofit.Builder mBuilder =
+                new Retrofit.Builder()
+                        .baseUrl("http://192.168.1.14:3000/")
+                        .addConverterFactory(GsonConverterFactory.create());
 
        /*Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
