@@ -1,13 +1,16 @@
 package fr.groupe3.iem.pokecard.Vue.Fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +32,9 @@ public class ListAllPokemonFragment extends BaseFragment {
     private ListView listViewPokemon;
     private TextView textViewTitre;
     private List<Pokemon> listPokemon;
+
+    private Button buttonOk;
+    private SearchView searchView;
 
     private LinearLayout linearLayoutLoading;
     private ImageView imageViewloading;
@@ -56,11 +62,14 @@ public class ListAllPokemonFragment extends BaseFragment {
     //region override
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
+        final ListAllPokemonFragment self = this;
         v = pInflater.inflate(R.layout.fragment_list_all_pokemon, pContainer, false);
 
         textViewTitre = v.findViewById(R.id.textViewTitre);
         listViewPokemon = v.findViewById(R.id.listViewPokemon);
         imageViewloading = (ImageView) v.findViewById(R.id.imageViewLoading);
+        searchView = v.findViewById(R.id.searchView);
+        buttonOk = v.findViewById(R.id.buttonOk);
         randomGifGenerator = new RandomGifGenerator();
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageViewloading);
         Glide.with(this).load(randomGifGenerator.ReturnUrlGif()).into(imageViewTarget);
@@ -71,6 +80,20 @@ public class ListAllPokemonFragment extends BaseFragment {
         managerWS = new ManagerWS(adapter, listPokemon);
 
         managerWS.getAllPokemon(this, linearLayoutLoading);
+
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchView.getQuery().toString().isEmpty()) {
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Veuillez rentrer un nom de Pokemon", Snackbar.LENGTH_LONG);
+                    managerWS.getAllPokemon(self, linearLayoutLoading);
+                    snackbar.show();
+                }
+                else {
+                    managerWS.GetListPokemonSearched(searchView.getQuery().toString(), self, linearLayoutLoading);
+                }
+            }
+        });
         return v;
     }
 

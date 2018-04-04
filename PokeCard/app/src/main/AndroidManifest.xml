@@ -23,7 +23,6 @@
         <activity android:name=".Vue.Activity.MainActivity" />
         <activity android:name=".Vue.Activity.ConnexionActivity" />
         <activity android:name=".Vue.Activity.NewUserActivity" />
-        <activity android:name=".Vue.Activity.BaseActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

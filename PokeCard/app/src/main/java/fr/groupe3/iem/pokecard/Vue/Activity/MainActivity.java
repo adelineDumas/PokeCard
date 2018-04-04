@@ -21,7 +21,7 @@ import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
-import fr.groupe3.iem.pokecard.Vue.Fragment.SettingsFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.VisualisationEchangeFragment;
 
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,29 +79,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            clearBackstack();
-            getFragmentManager().beginTransaction().replace(R.id.contentMain, SettingsFragment.newInstance()).addToBackStack(null).commit();
-            getSupportActionBar().setTitle("Settings");
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -127,7 +104,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             getSupportActionBar().setTitle("Rechercher un ami");
         }else if (id == R.id.nav_allEchange) {
             clearBackstack();
-            showFragment(EchangeFragment.newInstance());
+            showFragment(VisualisationEchangeFragment.newInstance());
             getSupportActionBar().setTitle("Echange");
         } else if (id == R.id.nav_Deconnexion) {
             clearBackstack();
@@ -138,6 +115,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void update(){
+        textViewUser.setText(User.getINSTANCE().getLogin());
+        textViewUserMail.setText(User.getINSTANCE().getMail());
+        if (User.getINSTANCE().getAvatar()!= null ){
+            Picasso.with(this).load(User.getINSTANCE().getAvatar()).resize(100, 100).into(imageViewUser);
+        }
+        textViewUserPoints.setText(User.getINSTANCE().getPoints() + " points");
     }
 
     //endregion

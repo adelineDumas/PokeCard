@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.facebook.internal.Utility;
 
@@ -23,13 +24,16 @@ import fr.groupe3.iem.pokecard.Entities.UserEchange;
 import fr.groupe3.iem.pokecard.Vue.Adapter.EchangeAdapter;
 import fr.groupe3.iem.pokecard.Vue.Adapter.FriendAdapter;
 import fr.groupe3.iem.pokecard.Vue.Adapter.SearchAddFriendAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.VisualisationEchangeAdapter;
 import fr.groupe3.iem.pokecard.Vue.Fragment.AddFriendsFragment;
+import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonEchangeableFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.DetailPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.EchangeFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListAllPokemonFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListFriendsFragment;
 import fr.groupe3.iem.pokecard.Vue.Fragment.ListPokemonUserFragment;
 import fr.groupe3.iem.pokecard.Vue.Adapter.PokemonAdapter;
+import fr.groupe3.iem.pokecard.Vue.Fragment.VisualisationEchangeFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +52,7 @@ public class ManagerWS extends AppCompatActivity{
     private List<Friend> listFriends;
     private PokemonAdapter adapterPokemon;
     private EchangeAdapter adapterechange;
+    private VisualisationEchangeAdapter adaptervisuechange;
     private SearchAddFriendAdapter searchAddFriendAdapter;
     private  FriendAdapter adapterFriend;
 
@@ -66,6 +71,11 @@ public class ManagerWS extends AppCompatActivity{
 
     public ManagerWS(EchangeAdapter adapter, List<Echange> pList) {
         this.adapterechange = adapter;
+        this.listEchange = pList;
+    }
+
+    public ManagerWS(VisualisationEchangeAdapter adapter, List<Echange> pList) {
+        this.adaptervisuechange = adapter;
         this.listEchange = pList;
     }
 
@@ -152,6 +162,27 @@ public class ManagerWS extends AppCompatActivity{
 
     }
 
+    public void getOnePokemon(int pId, final DetailPokemonEchangeableFragment callback , final LinearLayout pLoading) {
+        pokemonDetail = new PokemonDetail();
+        Call<PokemonDetail> pokemonCall = AppPokemon.getPokemonService().getOnePokemon(pId);
+        pokemonCall.enqueue(new Callback<PokemonDetail>() {
+            @Override
+            public void onResponse(Call<PokemonDetail> call, Response<PokemonDetail> response) {
+                pLoading.setVisibility(View.GONE);
+                pokemonDetail = response.body();
+                callback.Refresh(pokemonDetail);
+            }
+
+            @Override
+            public void onFailure(Call<PokemonDetail> call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+                callback.Refresh(pokemonDetail);
+            }
+        });
+
+    }
+
     /***
      * Permet de récupérer tous les pokemons d'un utilisateur passé en paramètre
      * @param pUser
@@ -208,6 +239,26 @@ public class ManagerWS extends AppCompatActivity{
         });
     }
 
+    public void EchangeReq(Echange echange, final VisualisationEchangeFragment callback, final LinearLayout pLoading){
+        Call<List<Echange>> pokemonCall = AppPokemon.getPokemonService().EchangeReq(echange);
+        pokemonCall.enqueue(new Callback<List<Echange>>() {
+            @Override
+            public void onResponse(Call<List<Echange>> call, Response<List<Echange>>response) {
+                pLoading.setVisibility(View.GONE);
+                listEchange.addAll(response.body());
+                adaptervisuechange.notifyDataSetChanged();
+                callback.Refresh(listEchange);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Echange>>call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                callback.Refresh(listEchange);
+            }
+        });
+    }
+
     /***
      * Permet d'échanger les deux Pokémons
      * @param context
@@ -242,7 +293,7 @@ public class ManagerWS extends AppCompatActivity{
         pokemonCall.enqueue(new Callback<JSONArray>() {
             @Override
             public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
-                AfficheDialogue("Utilisateur crée", context);
+                Toast.makeText(context, "Utilisateur crée", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -398,6 +449,25 @@ public class ManagerWS extends AppCompatActivity{
                 AfficheDialogue("Erreur de chargement", callback.getActivity());
                 listFriends.remove(pFriendaSupprimer);
                 callback.Refresh(listFriends);
+            }
+        });
+    }
+
+    public void GetListPokemonSearched(String pTextSearchView, final ListAllPokemonFragment callback, final LinearLayout pLoading){
+        Call<List<Pokemon>> userCall = AppPokemon.getPokemonService().GetListPokemonSearched(pTextSearchView);
+        userCall.enqueue(new Callback<List<Pokemon>>() {
+            @Override
+            public void onResponse(Call<List<Pokemon>> call, Response<List<Pokemon>> response) {
+                pLoading.setVisibility(View.GONE);
+                listPokemon = response.body();
+                callback.Refresh(listPokemon);
+            }
+
+            @Override
+            public void onFailure(Call<List<Pokemon>> call, Throwable t) {
+                pLoading.setVisibility(View.GONE);
+                AfficheDialogue("Erreur de chargement", callback.getActivity());
+                callback.Refresh(listPokemon);
             }
         });
     }

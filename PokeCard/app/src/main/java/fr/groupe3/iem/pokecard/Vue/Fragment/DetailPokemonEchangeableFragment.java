@@ -22,7 +22,7 @@ import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 
 
-public class DetailPokemonFragment extends BaseFragment {
+public class DetailPokemonEchangeableFragment extends BaseFragment {
 
     //region variable
     private View v;
@@ -38,6 +38,7 @@ public class DetailPokemonFragment extends BaseFragment {
     private TextView textViewWeight;
     private TextView textViewWeight1;
     private ImageView imageViewPokemon;
+    private Button buttonEchanger;
 
     private LinearLayout linearLayoutLoading;
     private ImageView imageViewloading;
@@ -50,12 +51,12 @@ public class DetailPokemonFragment extends BaseFragment {
 
     //region methodes
 
-    public DetailPokemonFragment(){
+    public DetailPokemonEchangeableFragment(){
 
     }
 
-    public static DetailPokemonFragment newInstance(Bundle data) {
-        DetailPokemonFragment fragment = new DetailPokemonFragment();
+    public static DetailPokemonEchangeableFragment newInstance(Bundle data) {
+        DetailPokemonEchangeableFragment fragment = new DetailPokemonEchangeableFragment();
         fragment.setArguments(data);
         return fragment;
     }
@@ -64,7 +65,7 @@ public class DetailPokemonFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
-        View v = pInflater.inflate(R.layout.fragment_detail_pokemon, pContainer, false);
+        View v = pInflater.inflate(R.layout.fragment_detail_pokemon_echangeable, pContainer, false);
 
         imageViewloading = (ImageView) v.findViewById(R.id.imageViewLoading);
         randomGifGenerator = new RandomGifGenerator();
@@ -84,6 +85,7 @@ public class DetailPokemonFragment extends BaseFragment {
         textViewWeight1 = (TextView) v.findViewById(R.id.textViewWeight1);
         textViewHeight= (TextView) v.findViewById(R.id.textViewHeight);
         textViewHeight1= (TextView) v.findViewById(R.id.textViewHeight1);
+        buttonEchanger = (Button) v.findViewById(R.id.buttonEchanger);
 
         Bundle data = getArguments();
         pokemonDetail = new PokemonDetail();
@@ -105,7 +107,41 @@ public class DetailPokemonFragment extends BaseFragment {
         textViewHeight1.setText(pPokemonDetail.getHeight());
         textViewAbility1.setText(pPokemonDetail.getAbility1());
         textViewAbility2.setText(pPokemonDetail.getAbility2());
-    }
+
+        buttonEchanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Bundle data = new Bundle();
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder
+                        .setMessage("Etes-vous sûr de vouloir échanger " + pPokemonDetail.getName_pokemon() + " ? ")
+                        .setCancelable(true)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int id) {
+                                data.putInt("id", pPokemonDetail.getId_pokemon());
+                                data.putString("nom", pPokemonDetail.getName_pokemon());
+                                data.putString("url", pPokemonDetail.getUrl_img());
+
+                                final AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(getActivity());
+                                alertDialogBuilder2
+                                        .setMessage("La demande d'échange a bien été effectuée.")
+                                        .setCancelable(true)
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                            }
+                                        });
+                                alertDialogBuilder2.show();
+                                showFragment(EchangeFragment.newInstance(data));
+                            }
+
+                        });
+                alertDialogBuilder.show();
+
+
+            }
+        });
+     }
 
 
     //endregion

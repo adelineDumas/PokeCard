@@ -85,6 +85,7 @@ public class NewUserActivity extends AppCompatActivity {
                     // ad - s'il existe dans la BD
                     if (!editTextUser.getText().toString().isEmpty() && ! editTextPassword.getText().toString().isEmpty() && ! editTextEmail.getText().toString().isEmpty() ) {
                         new ManagerWS().Signup(new User(editTextUser.getText().toString(), editTextPassword.getText().toString(), editTextEmail.getText().toString()), context);
+                        Toast.makeText(NewUserActivity.this, "Utilisateur créé", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent().setClass(NewUserActivity.this, ConnexionActivity.class);
                         startActivity(intent);
                     }

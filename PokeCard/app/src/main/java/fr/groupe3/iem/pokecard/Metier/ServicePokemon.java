@@ -64,5 +64,8 @@ public interface ServicePokemon {
     @POST("deletefriend")
     Call<JSONArray> DeleteFriend(@Body Friend friend);
 
+    @GET("searchpkmn/{name_pokemon}")
+    Call<List<Pokemon>> GetListPokemonSearched (@Path ("name_pokemon") String pPokemon);
+
 
 }

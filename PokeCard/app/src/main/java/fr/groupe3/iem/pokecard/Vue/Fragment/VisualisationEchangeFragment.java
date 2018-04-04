@@ -21,12 +21,13 @@ import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
 import fr.groupe3.iem.pokecard.R;
 import fr.groupe3.iem.pokecard.Vue.Adapter.EchangeAdapter;
+import fr.groupe3.iem.pokecard.Vue.Adapter.VisualisationEchangeAdapter;
 
 /**
  * Created by Adel on 25/01/2018.
  */
 
-public class EchangeFragment extends BaseFragment {
+public class VisualisationEchangeFragment extends BaseFragment {
 
     //region variables
     private View v ;
@@ -38,26 +39,26 @@ public class EchangeFragment extends BaseFragment {
 
     private List<Echange> listEchange;
 
-    private EchangeAdapter adapter;
+    private VisualisationEchangeAdapter adapter;
     private ManagerWS managerWS;
 
     //endregion
 
     //region methodes
 
-    public EchangeFragment(){
+    public VisualisationEchangeFragment(){
 
     }
 
-    public static EchangeFragment newInstance(Bundle data) {
-        EchangeFragment fragment = new EchangeFragment();
+    public static VisualisationEchangeFragment newInstance(Bundle data) {
+        VisualisationEchangeFragment fragment = new VisualisationEchangeFragment();
         fragment.setArguments(data);
         return fragment;
     }
 
-    public static EchangeFragment newInstance() {
+    public static VisualisationEchangeFragment newInstance() {
         Bundle args = new Bundle();
-        EchangeFragment fragment = new EchangeFragment();
+        VisualisationEchangeFragment fragment = new VisualisationEchangeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,7 +66,7 @@ public class EchangeFragment extends BaseFragment {
     //region override
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
-        v = pInflater.inflate(R.layout.fragment_echange, pContainer, false);
+        v = pInflater.inflate(R.layout.fragment_visualisationechange, pContainer, false);
 
         textViewEchange = v.findViewById(R.id.textViewEchange);
         listViewEchange = v.findViewById(R.id.ListViewEchange);
@@ -79,13 +80,11 @@ public class EchangeFragment extends BaseFragment {
         Bundle data = getArguments();
         Echange echange = new Echange(User.getINSTANCE().getLogin(), data.getInt("id"),data.getString("nom"),data.getString("url") );
         listEchange.add(echange);
-        adapter = new EchangeAdapter(getActivity(), listEchange, this, activity);
+        adapter = new VisualisationEchangeAdapter(getActivity(), listEchange, this);
         managerWS = new ManagerWS(adapter, listEchange);
 
         listEchange.clear();
         managerWS.EchangeReq(echange,this, linearLayoutLoading );
-
-
         return v;
     }
 
@@ -93,13 +92,13 @@ public class EchangeFragment extends BaseFragment {
 
     public void Refresh(final List<Echange> pListEchange){
         if (pListEchange.size()>= 1) {
-            EchangeAdapter adapter = new EchangeAdapter(getActivity(), pListEchange, this, activity);
+            VisualisationEchangeAdapter adapter = new VisualisationEchangeAdapter(getActivity(), pListEchange, this);
             listViewEchange = (ListView) v.findViewById(R.id.ListViewEchange);
             listViewEchange.setAdapter(adapter);
         }
         else if (pListEchange.size() == 0 ){
             textViewEchange.setText("Il n'y a pas d'échange proposé par d'autres utilisateurs.");
-            EchangeAdapter adapter = new EchangeAdapter(getActivity(), pListEchange, this, activity);
+            VisualisationEchangeAdapter adapter = new VisualisationEchangeAdapter(getActivity(), pListEchange, this);
             listViewEchange = (ListView) v.findViewById(R.id.ListViewEchange);
             listViewEchange.setAdapter(adapter);
         }

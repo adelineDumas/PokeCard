@@ -1,5 +1,6 @@
 package fr.groupe3.iem.pokecard.Vue.Activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +17,18 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONObject;
+
 import fr.groupe3.iem.pokecard.Entities.ConnexionInternet;
+import fr.groupe3.iem.pokecard.Entities.LoginFacebook;
 import fr.groupe3.iem.pokecard.Entities.User;
 import fr.groupe3.iem.pokecard.Metier.AppPokemon;
 import fr.groupe3.iem.pokecard.Metier.ManagerWS;
@@ -55,6 +62,7 @@ public class ConnexionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connexion);
 
         init();
+        initFacebook();
 
         if (!(ConnexionInternet.isConnectedInternet(ConnexionActivity.this))) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -74,13 +82,13 @@ public class ConnexionActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (ConnexionInternet.isConnectedInternet(ConnexionActivity.this)) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
 
-        if (requestCode == 64206) {
-            Toast.makeText(this, "Connexion Facebook réussie", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
+        }
+        else {
+            Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -126,7 +134,7 @@ public class ConnexionActivity extends AppCompatActivity {
                     if (!editTextUser.getText().toString().isEmpty() && !editTextPasword.getText().toString().isEmpty()) {
                         User.getINSTANCE().setLogin(editTextUser.getText().toString());
                         User.getINSTANCE().setPassword(editTextPasword.getText().toString());
-                           final Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
+                        final Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
                         Call<User> user = AppPokemon.getPokemonService().verifyLogin(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()));
                         user.enqueue(new Callback<User>() {
                             @Override
@@ -157,38 +165,78 @@ public class ConnexionActivity extends AppCompatActivity {
                 }
             }
         });
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-
-        buttonConnexionFB = (LoginButton) findViewById(fr.groupe3.iem.pokecard.R.id.login_button);
-        buttonConnexionFB.setReadPermissions("email");
-        buttonConnexionFB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-            }
-
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-            }
-        });
-
-
     }
 
+
+    private void initFacebook() {
+        final Context context = this;
+        buttonConnexionFB = (LoginButton) findViewById(fr.groupe3.iem.pokecard.R.id.login_button);
+        buttonConnexionFB.setReadPermissions("email");
+
+        if (ConnexionInternet.isConnectedInternet(ConnexionActivity.this)) {
+            //CallBack Login Facebook
+            callbackManager = CallbackManager.Factory.create();
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            GraphRequest grequest = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                                    new GraphRequest.GraphJSONObjectCallback() {
+                                        @Override
+                                        public void onCompleted(
+                                                JSONObject object,
+                                                GraphResponse response) {
+                                            try {
+                                                Profile profile = Profile.getCurrentProfile();
+                                                User.getINSTANCE().setLogin(object.getString("first_name") + " " + object.getString("last_name"));
+                                                User.getINSTANCE().setPassword("facebook");
+                                                User.getINSTANCE().setMail(object.getString("email") );
+                                                User.getINSTANCE().setAvatar(profile.getProfilePictureUri(150, 150).toString());
+                                                new ManagerWS().Signup(new User(object.getString("first_name") + " " + object.getString("last_name"), "facebook", object.getString("email")), context);
+
+                                                Call<User> user = AppPokemon.getPokemonService().verifyLogin(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()));
+                                                user.enqueue(new Callback<User>() {
+                                                    @Override
+                                                    public void onResponse(Call<User> call, Response<User> response) {
+                                                        User.getINSTANCE().setPoints(response.body().getPoints());
+                                                        Intent intent = new Intent().setClass(ConnexionActivity.this, MainActivity.class);
+                                                        Toast.makeText(context, "Connexion Facebook réussie", Toast.LENGTH_SHORT).show();
+                                                        startActivity(intent);
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<User> call, Throwable t) {
+                                                    }
+                                                });
+
+
+                                            } catch (Exception e) {
+                                                Toast.makeText(ConnexionActivity.this, "Une erreur est survenue, veuillez réessayer", Toast.LENGTH_SHORT).show();
+                                            }
+                                            LoginManager.getInstance().logOut(); //déconnexion facebook
+                                        }
+                                    });
+                            Bundle parameters = new Bundle();
+                            parameters.putString("fields", "email,first_name,last_name,id"); // id,first_name,last_name,email,gender,birthday,cover,picture.type(large)
+                            grequest.setParameters(parameters);
+                            grequest.executeAsync();
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Toast.makeText(ConnexionActivity.this, "Annulé", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onError(FacebookException exception) {
+                            Toast.makeText(ConnexionActivity.this, "Erreur" + exception, Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+        else {
+            Toast.makeText(ConnexionActivity.this, "Vous n'êtes pas connecté à internet", Toast.LENGTH_SHORT).show();
+        }
+    }
     //endregion
 
 }
