@@ -86,7 +86,7 @@ public class AddFriendsFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 if (searchView.getQuery().toString().isEmpty()) {
-                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Veuillez rentrer un nom d'utilisateur.", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Veuillez rentrer un nom d'utilisateur.", Snackbar.LENGTH_INDEFINITE);
                     managerWS.GetListUserRandom(self, linearLayoutLoading, User.getINSTANCE());
                     snackbar.show();
                 }

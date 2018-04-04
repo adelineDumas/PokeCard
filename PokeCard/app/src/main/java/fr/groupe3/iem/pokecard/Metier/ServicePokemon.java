@@ -1,6 +1,7 @@
 package fr.groupe3.iem.pokecard.Metier;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -41,10 +42,10 @@ public interface ServicePokemon {
     Call<List<Echange>> EchangeReq(@Body Echange echange);
 
     @POST("exchangewith")
-    Call<JSONArray> EchangeWith(@Body UserEchange userEchange);
+    Call<JSONObject> EchangeWith(@Body UserEchange userEchange);
 
     @POST("signup")
-    Call<JSONArray> SignUp(@Body User user);
+    Call<JSONObject> SignUp(@Body User user);
 
     @POST("getbooster")
     Call<List<Pokemon>> GetBooster(@Body User user);
@@ -62,7 +63,7 @@ public interface ServicePokemon {
     Call<List<Friend>> GetListFriends(@Body User user);
 
     @POST("deletefriend")
-    Call<JSONArray> DeleteFriend(@Body Friend friend);
+    Call<JSONObject> DeleteFriend(@Body Friend friend);
 
     @GET("searchpkmn/{name_pokemon}")
     Call<List<Pokemon>> GetListPokemonSearched (@Path ("name_pokemon") String pPokemon);

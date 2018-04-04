@@ -109,12 +109,12 @@ public class ListPokemonUserFragment extends BaseFragment {
 
     public void GestionBooster(List<Pokemon> pListPokemon){
         if (pListPokemon.size() == 0 ){
-            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_INDEFINITE);
             snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this, linearLayoutLoading, activity));
             snackbar.show();
         }
         if (User.getINSTANCE().getPoints() > 10){
-            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.contentMain), "Vous avez gagné un booster !", Snackbar.LENGTH_INDEFINITE);
             snackbar.setAction("Ouvrir", new ListenerOpen(managerWS, this, linearLayoutLoading, activity));
             snackbar.show();
         }

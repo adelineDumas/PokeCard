@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.facebook.internal.Utility;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -126,7 +127,6 @@ public class ManagerWS extends AppCompatActivity{
             @Override
             public void onFailure(Call<List<Pokemon>> call, Throwable t) {
                 pLoading.setVisibility(View.GONE);
-                AfficheDialogue("Erreur de chargement", callback.getActivity());
                 callback.Refresh(listPokemon);
 
             }
@@ -206,7 +206,6 @@ public class ManagerWS extends AppCompatActivity{
             @Override
             public void onFailure(Call<List<Pokemon>>call, Throwable t) {
                 pLoading.setVisibility(View.GONE);
-                AfficheDialogue("Erreur de chargement", callback.getActivity());
                 callback.Refresh(listPokemon);
             }
         });
@@ -266,17 +265,22 @@ public class ManagerWS extends AppCompatActivity{
      * @author Adeline Dumas
      */
     public void EchangeWith(final Context context, final Echange echange, final EchangeFragment callback){
-        Call<JSONArray> pokemonCall = AppPokemon.getPokemonService().EchangeWith(new UserEchange(User.getINSTANCE().getLogin(), listEchange.get(0).getId_pokemon(), echange.getLogin_user(), echange.getId_pokemon()));
-        pokemonCall.enqueue(new Callback<JSONArray>() {
+        Call<JSONObject> pokemonCall = AppPokemon.getPokemonService().EchangeWith(new UserEchange(User.getINSTANCE().getLogin(), listEchange.get(0).getId_pokemon(), echange.getLogin_user(), echange.getId_pokemon()));
+        pokemonCall.enqueue(new Callback<JSONObject>() {
             @Override
-            public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
-                AfficheDialogue("Echange réussi.",context );
-                listEchange.remove(echange);
-                callback.Refresh(listEchange);
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                if (response.code() == 400 ) {
+                    Toast.makeText(context, "L'échange n'a pas fonctionné, veuillez réessayer plus tard.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    AfficheDialogue("Echange réussi.",context );
+                    listEchange.remove(echange);
+                    callback.Refresh(listEchange);
+                }
             }
 
             @Override
-            public void onFailure(Call<JSONArray>call, Throwable t) {
+            public void onFailure(Call<JSONObject>call, Throwable t) {
                 AfficheDialogue("L'échange n'a pas fonctionné, veuillez réessayer plus tard.",context);
             }
         });
@@ -289,15 +293,20 @@ public class ManagerWS extends AppCompatActivity{
      * @author Adeline Dumas
      */
     public void Signup(User pUser, final Context context){
-        Call<JSONArray> pokemonCall = AppPokemon.getPokemonService().SignUp(pUser);
-        pokemonCall.enqueue(new Callback<JSONArray>() {
+        Call<JSONObject> pokemonCall = AppPokemon.getPokemonService().SignUp(pUser);
+        pokemonCall.enqueue(new Callback<JSONObject>() {
             @Override
-            public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
-                Toast.makeText(context, "Utilisateur crée", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                if (response.code() == 400 ) {
+                    Toast.makeText(context, "Erreur dans la création de l'utilisateur, veuillez réessayer plus tard.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, "Utilisateur créé", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<JSONArray>call, Throwable t) {
+            public void onFailure(Call<JSONObject>call, Throwable t) {
                 AfficheDialogue("Erreur dans la création de l'utilisateur, veuillez réessayer plus tard.",context);
             }
         });
@@ -433,22 +442,28 @@ public class ManagerWS extends AppCompatActivity{
     }
 
     public void DeleteFriend(Friend pFriend, final Friend pFriendaSupprimer , final ListFriendsFragment callback, final LinearLayout pLoading){
-        Call<JSONArray> userCall = AppPokemon.getPokemonService().DeleteFriend(pFriend);
-        userCall.enqueue(new Callback<JSONArray> () {
+        Call<JSONObject> userCall = AppPokemon.getPokemonService().DeleteFriend(pFriend);
+        userCall.enqueue(new Callback<JSONObject> () {
             @Override
-            public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
-                pLoading.setVisibility(View.GONE);
-                AfficheDialogue("Cet utilisateur a bien été supprimé dans vos amis.", callback.getActivity());
-                listFriends.remove(pFriendaSupprimer);
-                callback.Refresh(listFriends);
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+
+                if (response.code() == 400 ) {
+                    pLoading.setVisibility(View.GONE);
+                    Toast.makeText(callback.getActivity(), "Erreur dans la suppression de l'ami", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    pLoading.setVisibility(View.GONE);
+                    AfficheDialogue("Cet utilisateur a bien été supprimé dans vos amis.", callback.getActivity());
+                    listFriends.remove(pFriendaSupprimer);
+                    callback.Refresh(listFriends);
+                }
+
             }
 
             @Override
-            public void onFailure(Call<JSONArray> call, Throwable t) {
+            public void onFailure(Call<JSONObject> call, Throwable t) {
                 pLoading.setVisibility(View.GONE);
-                AfficheDialogue("Erreur de chargement", callback.getActivity());
-                listFriends.remove(pFriendaSupprimer);
-                callback.Refresh(listFriends);
+                AfficheDialogue("Erreur dans la suppression de l'ami", callback.getActivity());
             }
         });
     }

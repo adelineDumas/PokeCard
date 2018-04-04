@@ -192,7 +192,17 @@ public class ConnexionActivity extends AppCompatActivity {
                                                 User.getINSTANCE().setPassword("facebook");
                                                 User.getINSTANCE().setMail(object.getString("email") );
                                                 User.getINSTANCE().setAvatar(profile.getProfilePictureUri(150, 150).toString());
-                                                new ManagerWS().Signup(new User(object.getString("first_name") + " " + object.getString("last_name"), "facebook", object.getString("email")), context);
+
+                                                Call<JSONObject> pokemonCall = AppPokemon.getPokemonService().SignUp(new User(object.getString("first_name") + " " + object.getString("last_name"), "facebook", object.getString("email")));
+                                                pokemonCall.enqueue(new Callback<JSONObject>() {
+                                                    @Override
+                                                    public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<JSONObject>call, Throwable t) {
+                                                    }
+                                                });
 
                                                 Call<User> user = AppPokemon.getPokemonService().verifyLogin(new User(User.getINSTANCE().getLogin(), User.getINSTANCE().getPassword()));
                                                 user.enqueue(new Callback<User>() {
